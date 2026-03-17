@@ -195,8 +195,10 @@ def _buffer_ratio(spec: SystemSpec) -> float:
 def _eigenvector_centrality(graph: nx.Graph) -> dict[str, float]:
     if graph.number_of_nodes() <= 1:
         return {node: 0.0 for node in graph.nodes()}
+    if graph.number_of_edges() == 0:
+        return {str(node): 0.0 for node in graph.nodes()}
     try:
-        values = nx.eigenvector_centrality_numpy(graph)
+        values = nx.eigenvector_centrality(graph, max_iter=500, tol=1e-6)
         return {str(key): float(value) for key, value in values.items()}
     except (nx.NetworkXException, ValueError):
         return {str(node): 0.0 for node in graph.nodes()}
