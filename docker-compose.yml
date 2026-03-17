@@ -1,0 +1,10 @@
+services:
+  stresslab:
+    build: .
+    ports:
+      - "8765:8765"
+    environment:
+      STRESSLAB_REFRESH: "1"
+      STRESSLAB_API_TOKEN: "change-me"
+    volumes:
+      - ./runs:/data/runs

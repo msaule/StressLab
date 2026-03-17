@@ -1,0 +1,29 @@
+name: healthcare_decision_campaign
+description: >
+  A repeatable healthcare resilience campaign covering baseline execution,
+  failure search, and robust intervention planning.
+continue_on_error: true
+jobs:
+  - id: ed_baseline
+    label: ED baseline
+    command: run
+    spec_path: ../healthcare/ed_basic.yml
+    tags: [healthcare, baseline]
+
+  - id: ed_min_failure
+    label: ED minimum failure search
+    command: search
+    spec_path: ../healthcare/ed_basic.yml
+    objective: min_failure
+    tags: [healthcare, search]
+
+  - id: ed_robust_optimize
+    label: ED robust optimize
+    command: optimize
+    spec_path: ../healthcare/ed_basic.yml
+    budget: 2500
+    robust: true
+    scenario_budget: 0.4
+    scenario_samples: 3
+    fairness_weight: 0.25
+    tags: [healthcare, robust, optimize]

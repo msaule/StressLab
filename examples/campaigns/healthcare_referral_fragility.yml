@@ -1,0 +1,34 @@
+name: healthcare_referral_fragility
+description: >
+  Discovery study focused on small-world referral-style networks to probe
+  healthcare-style congestion thresholds and collapse laws.
+continue_on_error: false
+jobs:
+  - id: healthcare_generate
+    label: Generate referral networks
+    command: generate
+    topology_type: small_world
+    count: 32
+    min_nodes: 8
+    max_nodes: 14
+    batch_size: 16
+    seed: 11
+
+  - id: healthcare_discover
+    label: Discover fragility
+    command: discover
+    source_dir: "{healthcare_generate}/generated"
+    batch_size: 16
+    workers: 2
+    worst_case_budget: 0.7
+
+  - id: healthcare_theory
+    label: Fit theory
+    command: theory
+    dataset_source: "{healthcare_discover}"
+
+  - id: healthcare_research
+    label: Package research report
+    command: research
+    dataset_source: "{healthcare_discover}"
+    theory_dir: "{healthcare_theory}"

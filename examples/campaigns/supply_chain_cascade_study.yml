@@ -1,0 +1,34 @@
+name: supply_chain_cascade_study
+description: >
+  Discovery study for hierarchical supply networks, emphasizing tiered capacity
+  loss, port-style bottlenecks, and cascade propagation.
+continue_on_error: false
+jobs:
+  - id: supply_generate
+    label: Generate supply networks
+    command: generate
+    topology_type: hierarchical_supply
+    count: 32
+    min_nodes: 8
+    max_nodes: 16
+    batch_size: 16
+    seed: 19
+
+  - id: supply_discover
+    label: Discover cascades
+    command: discover
+    source_dir: "{supply_generate}/generated"
+    batch_size: 16
+    workers: 2
+    worst_case_budget: 0.8
+
+  - id: supply_theory
+    label: Fit supply theory
+    command: theory
+    dataset_source: "{supply_discover}"
+
+  - id: supply_research
+    label: Package supply report
+    command: research
+    dataset_source: "{supply_discover}"
+    theory_dir: "{supply_theory}"

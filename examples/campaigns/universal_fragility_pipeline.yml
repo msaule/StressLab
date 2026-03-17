@@ -1,0 +1,34 @@
+name: universal_fragility_pipeline
+description: >
+  Flagship discovery study that generates synthetic systems, runs collapse
+  discovery, fits theory artifacts, and produces a publication-style report.
+continue_on_error: false
+jobs:
+  - id: synthetic_generate
+    label: Synthetic generation
+    command: generate
+    topology_type: mixed
+    count: 24
+    min_nodes: 6
+    max_nodes: 12
+    batch_size: 12
+    seed: 7
+
+  - id: fragility_discover
+    label: Fragility discovery
+    command: discover
+    source_dir: "{synthetic_generate}/generated"
+    batch_size: 12
+    workers: 2
+    worst_case_budget: 0.6
+
+  - id: fragility_theory
+    label: Theory analysis
+    command: theory
+    dataset_source: "{fragility_discover}"
+
+  - id: fragility_research
+    label: Research report
+    command: research
+    dataset_source: "{fragility_discover}"
+    theory_dir: "{fragility_theory}"

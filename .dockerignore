@@ -1,0 +1,17 @@
+.git
+.github
+.hypothesis
+.pytest_cache
+.ruff_cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.egg-info
+.venv
+venv
+dist
+build
+runs
+benchmarks
+notebooks

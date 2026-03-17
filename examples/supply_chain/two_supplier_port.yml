@@ -1,0 +1,221 @@
+system:
+  name: two_supplier_port
+  domain: supply_chain
+  description: Two suppliers feed a plant through a port and warehouse.
+
+clock:
+  type: continuous
+  start: 0
+  end: 2160
+
+nodes:
+  - id: supplier_a
+    type: queue_server
+    servers: 2
+    buffer_capacity: 20
+    queue_policy: fifo
+    service_time:
+      distribution: deterministic
+      value: 12
+
+  - id: supplier_b
+    type: queue_server
+    servers: 2
+    buffer_capacity: 20
+    queue_policy: fifo
+    service_time:
+      distribution: deterministic
+      value: 14
+
+  - id: plant
+    type: queue_server
+    servers: 2
+    buffer_capacity: 30
+    queue_policy: fifo
+    service_time:
+      distribution: gamma
+      shape: 2.0
+      scale: 10.0
+
+  - id: port
+    type: queue_server
+    servers: 1
+    buffer_capacity: 30
+    queue_policy: fifo
+    service_time:
+      distribution: gamma
+      shape: 2.0
+      scale: 18.0
+
+  - id: warehouse
+    type: queue_server
+    servers: 2
+    buffer_capacity: 35
+    queue_policy: fifo
+    service_time:
+      distribution: gamma
+      shape: 2.0
+      scale: 8.0
+
+  - id: retailer
+    type: queue_server
+    servers: 3
+    buffer_capacity: 50
+    queue_policy: fifo
+    service_time:
+      distribution: deterministic
+      value: 5
+
+edges:
+  - from: supplier_a
+    to: plant
+    travel_time: 8
+    routing:
+      type: probabilistic
+      probability: 1.0
+
+  - from: supplier_b
+    to: plant
+    travel_time: 10
+    routing:
+      type: probabilistic
+      probability: 1.0
+
+  - from: plant
+    to: port
+    travel_time: 12
+    transfer_capacity: 0.08
+    routing:
+      type: probabilistic
+      probability: 1.0
+
+  - from: port
+    to: warehouse
+    travel_time: 16
+    transfer_capacity: 0.05
+    routing:
+      type: probabilistic
+      probability: 1.0
+
+  - from: warehouse
+    to: retailer
+    travel_time: 6
+    transfer_capacity: 0.12
+    routing:
+      type: probabilistic
+      probability: 1.0
+
+  - from: plant
+    to: warehouse
+    enabled: false
+    travel_time: 28
+    transfer_capacity: 0.04
+    routing:
+      type: probabilistic
+      probability: 0.0
+
+arrivals:
+  - node: supplier_a
+    process:
+      type: poisson
+      rate: 0.08
+
+  - node: supplier_b
+    process:
+      type: poisson
+      rate: 0.06
+
+shocks:
+  - id: port_delay
+    type: service_time_factor
+    target: port
+    factor: 1.7
+    start: 720
+    duration: 480
+
+  - id: supplier_outage
+    type: capacity_fraction
+    target: supplier_b
+    fraction: 1.0
+    start: 540
+    duration: 360
+
+  - id: port_lane_cut
+    type: transfer_capacity_fraction
+    target: port->warehouse
+    fraction: 0.6
+    start: 760
+    duration: 420
+
+failure_conditions:
+  - type: any
+    conditions:
+      - type: queue_integral
+        node: port
+        threshold: 3500
+      - type: mean_wait
+        node: warehouse
+        threshold: 20
+      - type: blocked_transfers
+        threshold: 8
+
+interventions:
+  - id: backup_route
+    label: Activate warehouse bypass
+    target: plant->warehouse
+    action_type: enable_backup_edge
+    cost: 700
+
+  - id: reroute_to_backup
+    label: Reroute to backup lane
+    target: plant->warehouse
+    action_type: reroute_fraction
+    delta: 0.25
+    cost: 450
+
+  - id: add_port_shift
+    label: Add port shift
+    target: port
+    action_type: add_servers
+    delta: 1
+    cost: 1500
+
+  - id: expand_warehouse_buffer
+    label: Expand warehouse buffer
+    target: warehouse
+    action_type: increase_buffer_capacity
+    delta: 10
+    cost: 500
+
+search:
+  objective: min_failure
+  max_iterations: 12
+  direction_samples: 8
+  search_space:
+    - id: supplier_b_outage_fraction
+      kind: capacity_fraction
+      target: supplier_b
+      min: 0.0
+      max: 1.0
+      cost_weight: 1.0
+      start: 540
+      duration: 360
+    - id: port_delay_factor
+      kind: service_time_factor
+      target: port
+      min: 1.0
+      max: 2.0
+      cost_weight: 1.2
+      start: 720
+      duration: 480
+    - id: port_lane_capacity_fraction
+      kind: transfer_capacity_fraction
+      target: port->warehouse
+      min: 0.0
+      max: 0.8
+      cost_weight: 1.1
+      start: 760
+      duration: 420
+
+report:
+  top_n_nodes: 3

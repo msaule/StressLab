@@ -1,0 +1,208 @@
+system:
+  name: liquidity_withdrawal
+  domain: markets
+  description: A lightweight market-structure network with maker withdrawal and venue latency.
+
+clock:
+  type: continuous
+  start: 0
+  end: 1440
+
+classes:
+  - id: institutional
+    priority: 0
+  - id: retail
+    priority: 1
+
+nodes:
+  - id: order_gateway
+    type: queue_server
+    servers: 3
+    buffer_capacity: 40
+    queue_policy: priority
+    priority_classes: [institutional, retail]
+    service_time:
+      distribution: deterministic
+      value: 2
+
+  - id: maker_pool
+    type: queue_server
+    servers: 3
+    buffer_capacity: 35
+    queue_policy: fifo
+    service_time:
+      distribution: gamma
+      shape: 2.0
+      scale: 4.0
+
+  - id: venue
+    type: queue_server
+    servers: 2
+    buffer_capacity: 30
+    queue_policy: fifo
+    service_time:
+      distribution: gamma
+      shape: 2.0
+      scale: 5.0
+
+  - id: clearing
+    type: queue_server
+    servers: 2
+    buffer_capacity: 25
+    queue_policy: fifo
+    service_time:
+      distribution: deterministic
+      value: 3
+
+edges:
+  - from: order_gateway
+    to: maker_pool
+    travel_time: 1
+    transfer_capacity: 0.25
+    routing:
+      type: probabilistic
+      probability: 1.0
+
+  - from: maker_pool
+    to: venue
+    travel_time: 2
+    transfer_capacity: 0.18
+    routing:
+      type: probabilistic
+      probability: 1.0
+
+  - from: venue
+    to: clearing
+    travel_time: 1
+    transfer_capacity: 0.22
+    routing:
+      type: probabilistic
+      probability: 1.0
+
+arrivals:
+  - node: order_gateway
+    process:
+      type: nonhomogeneous_poisson
+      base_rate: 0.18
+      seasonality:
+        period: daily
+        amplitude: 0.15
+    class_mix:
+      institutional: 0.4
+      retail: 0.6
+
+shocks:
+  - id: maker_withdrawal
+    type: capacity_fraction
+    target: maker_pool
+    fraction: 0.5
+    start: 360
+    duration: 240
+
+  - id: venue_latency
+    type: service_time_factor
+    target: venue
+    factor: 1.8
+    start: 420
+    duration: 180
+
+  - id: venue_link_latency
+    type: delay_factor
+    target: maker_pool->venue
+    factor: 2.0
+    start: 420
+    duration: 180
+
+  - id: volatility_cluster
+    type: compound
+    start: 540
+    components:
+      - id: order_surge
+        type: demand_multiplier
+        target: order_gateway
+        factor: 1.35
+        start: 540
+        duration: 180
+      - id: maker_drawdown
+        type: capacity_fraction
+        target: maker_pool
+        fraction: 0.25
+        start: 540
+        duration: 180
+
+failure_conditions:
+  - type: any
+    conditions:
+      - type: mean_wait
+        node: venue
+        threshold: 12
+      - type: queue_integral
+        node: maker_pool
+        threshold: 1800
+      - type: throughput_loss
+        threshold: 0.2
+      - type: blocked_transfers
+        threshold: 10
+
+interventions:
+  - id: add_backup_liquidity
+    label: Add backup liquidity
+    target: maker_pool
+    action_type: add_servers
+    delta: 1
+    cost: 1400
+
+  - id: fast_lane_venue
+    label: Enable fast lane venue processing
+    target: venue
+    action_type: reduce_service_time_factor
+    replacement: 0.8
+    cost: 900
+
+  - id: gateway_priority_lock
+    label: Promote priority routing
+    target: order_gateway
+    action_type: priority_policy_change
+    replacement: priority
+    cost: 400
+
+search:
+  objective: min_failure
+  max_iterations: 12
+  direction_samples: 8
+  search_space:
+    - id: order_flow_surge
+      kind: demand_multiplier
+      target: order_gateway
+      min: 1.0
+      max: 1.6
+      cost_weight: 0.8
+      start: 360
+      duration: 240
+    - id: maker_pool_capacity_loss
+      kind: capacity_fraction
+      target: maker_pool
+      min: 0.0
+      max: 0.8
+      cost_weight: 1.2
+      start: 360
+      duration: 240
+    - id: venue_delay_factor
+      kind: service_time_factor
+      target: venue
+      min: 1.0
+      max: 2.0
+      cost_weight: 1.0
+      start: 420
+      duration: 180
+    - id: venue_link_delay_factor
+      kind: delay_factor
+      target: maker_pool->venue
+      min: 1.0
+      max: 2.2
+      cost_weight: 0.8
+      start: 420
+      duration: 180
+
+report:
+  top_n_nodes: 3

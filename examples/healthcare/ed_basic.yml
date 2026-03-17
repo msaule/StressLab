@@ -1,0 +1,180 @@
+system:
+  name: ed_basic
+  domain: healthcare
+  description: Emergency department network with triage, imaging, and ward bottlenecks.
+
+clock:
+  type: continuous
+  start: 0
+  end: 2880
+
+classes:
+  - id: critical
+    priority: 0
+  - id: urgent
+    priority: 1
+  - id: routine
+    priority: 2
+
+nodes:
+  - id: triage
+    type: queue_server
+    servers: 3
+    buffer_capacity: 40
+    queue_policy: priority
+    priority_classes: [critical, urgent, routine]
+    service_time:
+      distribution: gamma
+      shape: 2.0
+      scale: 6.0
+
+  - id: imaging
+    type: queue_server
+    servers: 2
+    buffer_capacity: 25
+    queue_policy: priority
+    priority_classes: [critical, urgent, routine]
+    service_time:
+      distribution: gamma
+      shape: 2.0
+      scale: 18.0
+
+  - id: ward
+    type: queue_server
+    servers: 4
+    buffer_capacity: 50
+    queue_policy: fifo
+    service_time:
+      distribution: gamma
+      shape: 2.0
+      scale: 24.0
+
+edges:
+  - from: triage
+    to: imaging
+    routing:
+      type: probabilistic
+      probability: 0.45
+
+  - from: triage
+    to: ward
+    routing:
+      type: probabilistic
+      probability: 0.45
+
+  - from: imaging
+    to: ward
+    routing:
+      type: probabilistic
+      probability: 0.8
+
+arrivals:
+  - node: triage
+    process:
+      type: nonhomogeneous_poisson
+      base_rate: 0.22
+      seasonality:
+        period: daily
+        amplitude: 0.2
+    class_mix:
+      critical: 0.15
+      urgent: 0.35
+      routine: 0.5
+
+shocks:
+  - id: influenza_surge
+    type: demand_multiplier
+    target: triage
+    factor: 1.35
+    start: 720
+    duration: 720
+
+  - id: imaging_staffing_loss
+    type: capacity_fraction
+    target: imaging
+    fraction: 0.5
+    start: 900
+    duration: 600
+
+  - id: ward_backlog_wave
+    type: compound
+    start: 1320
+    components:
+      - id: triage_staff_loss
+        type: capacity_fraction
+        target: triage
+        fraction: 0.4
+        start: 1320
+        duration: 240
+      - id: ward_delay
+        type: service_time_factor
+        target: ward
+        factor: 1.25
+        start: 1320
+        duration: 360
+
+failure_conditions:
+  - type: any
+    conditions:
+      - type: mean_wait
+        node: triage
+        threshold: 85
+      - type: queue_integral
+        node: imaging
+        threshold: 70000
+
+interventions:
+  - id: add_triage_staff
+    label: Add triage staff
+    target: triage
+    action_type: add_servers
+    delta: 1
+    cost: 1200
+
+  - id: add_ward_capacity
+    label: Add ward capacity
+    target: ward
+    action_type: add_servers
+    delta: 1
+    cost: 1100
+
+  - id: faster_ward_turnover
+    label: Faster ward turnover
+    target: ward
+    action_type: reduce_service_time_factor
+    replacement: 0.85
+    cost: 900
+
+search:
+  objective: min_failure
+  max_iterations: 12
+  direction_samples: 8
+  damage_function: composite_damage
+  search_space:
+    - id: triage_demand_multiplier
+      kind: demand_multiplier
+      target: triage
+      min: 1.0
+      max: 1.8
+      cost_weight: 1.0
+      start: 720
+      duration: 720
+    - id: imaging_capacity_fraction
+      kind: capacity_fraction
+      target: imaging
+      min: 0.0
+      max: 0.7
+      cost_weight: 1.2
+      start: 900
+      duration: 600
+    - id: ward_delay_factor
+      kind: service_time_factor
+      target: ward
+      min: 1.0
+      max: 1.5
+      cost_weight: 0.8
+      start: 900
+      duration: 600
+
+report:
+  top_n_nodes: 3

@@ -1,0 +1,34 @@
+name: market_microstructure_fragility
+description: >
+  Discovery study for market-style microstructure graphs, aimed at liquidity
+  withdrawal, fragmentation, and cascade-law analysis.
+continue_on_error: false
+jobs:
+  - id: market_generate
+    label: Generate market graphs
+    command: generate
+    topology_type: market_microstructure
+    count: 32
+    min_nodes: 8
+    max_nodes: 14
+    batch_size: 16
+    seed: 23
+
+  - id: market_discover
+    label: Discover market collapse laws
+    command: discover
+    source_dir: "{market_generate}/generated"
+    batch_size: 16
+    workers: 2
+    worst_case_budget: 0.75
+
+  - id: market_theory
+    label: Fit market theory
+    command: theory
+    dataset_source: "{market_discover}"
+
+  - id: market_research
+    label: Package market report
+    command: research
+    dataset_source: "{market_discover}"
+    theory_dir: "{market_theory}"
