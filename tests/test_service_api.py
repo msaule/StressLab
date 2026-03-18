@@ -64,6 +64,11 @@ def test_workspace_api_exposes_registry_board_and_artifacts(toy_spec_path, tmp_p
         assert "StressLab Control Center" in app_html
         assert "Async Job Desk" in app_html
         assert "Discovery Lab" in app_html
+        demo_html = _fetch_text(f"{api.base_url}/demo")
+        assert "Run a live preset stress test" in demo_html
+        assert "StressLab Demo" in demo_html
+        docs_html = _fetch_text(f"{api.base_url}/docs/")
+        assert "Utilization leads the collapse cliff" in docs_html
 
         registry = _fetch_json(f"{api.base_url}/registry?limit=2")
         assert registry["entry_count"] == 2
@@ -96,6 +101,62 @@ def test_workspace_api_exposes_registry_board_and_artifacts(toy_spec_path, tmp_p
         assert "bundle_manifest.json" in members
         assert "artifact/baseline_result.json" in members
         assert "registry/.stresslab_registry.csv" in members
+    finally:
+        api.close()
+
+
+def test_workspace_api_exposes_demo_presets_and_assets(tmp_path: Path):
+    workspace = tmp_path / "workspace"
+    api = start_workspace_api_server(workspace, host="127.0.0.1", port=0, refresh=True, quiet=True)
+    try:
+        presets = _fetch_json(f"{api.base_url}/demo/presets")
+        assert "utilization-led" in presets["claim"]
+        assert len(presets["presets"]) >= 4
+        preset_ids = {preset["id"] for preset in presets["presets"]}
+        assert {"healthcare_ed", "supply_chain_port", "market_liquidity", "synthetic_generic"} <= preset_ids
+
+        image_bytes = _fetch_bytes(f"{api.base_url}/demo-assets/main_result.png")
+        assert len(image_bytes) > 100
+    finally:
+        api.close()
+
+
+def test_workspace_api_can_run_demo_session(tmp_path: Path):
+    workspace = tmp_path / "workspace"
+    api = start_workspace_api_server(workspace, host="127.0.0.1", port=0, refresh=True, quiet=True)
+    try:
+        created = _post_json(
+            f"{api.base_url}/demo/run",
+            {
+                "preset_id": "synthetic_generic",
+                "controls": {
+                    "utilization": 1.15,
+                    "coupling": 1.10,
+                    "slack": 0.95,
+                    "shock_intensity": 1.10,
+                },
+            },
+        )
+        assert created["status"] == "running"
+        session_id = created["session_id"]
+
+        latest = created
+        deadline = time.time() + 90.0
+        while time.time() < deadline:
+            latest = _fetch_json(f"{api.base_url}/demo/sessions/{session_id}")
+            if latest["status"] in {"complete", "failed"}:
+                break
+            time.sleep(0.25)
+
+        assert latest["status"] == "complete", latest
+        result = latest["result"]
+        assert result["collapse_risk"]["label"] in {"High", "Moderate", "Low"}
+        assert "best_shock_budget" in result["failure_margin"]
+        assert result["best_intervention"] is not None
+        assert result["bottlenecks"]
+
+        optimize_report = _fetch_text(f"{api.base_url}{result['reports']['optimize_report']}")
+        assert "<html" in optimize_report.lower()
     finally:
         api.close()
 
@@ -200,6 +261,10 @@ def test_workspace_api_optional_token_auth_protects_private_routes(toy_spec_path
 
         app_html = _fetch_text(f"{api.base_url}/app")
         assert "StressLab Control Center" in app_html
+        demo_html = _fetch_text(f"{api.base_url}/demo")
+        assert "StressLab Demo" in demo_html
+        presets = _fetch_json(f"{api.base_url}/demo/presets")
+        assert presets["presets"]
 
         try:
             _fetch_json(f"{api.base_url}/registry?limit=1")
@@ -220,5 +285,15 @@ def test_workspace_api_optional_token_auth_protects_private_routes(toy_spec_path
             headers={"X-StressLab-Token": "secret-token"},
         )
         assert authorized_jobs["status"] == "queued"
+
+        try:
+            _post_json(
+                f"{api.base_url}/demo/run",
+                {"preset_id": "synthetic_generic", "controls": {"utilization": 1.0}},
+            )
+        except HTTPError as exc:
+            assert exc.code == 401
+        else:  # pragma: no cover - defensive assertion
+            raise AssertionError("Expected demo run without a token to fail.")
     finally:
         api.close()

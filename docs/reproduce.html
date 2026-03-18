@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StressLab | Reproduce the Study</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <nav class="nav">
+      <div class="brand">StressLab</div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="demo.html">Demo</a>
+        <a href="main-finding.html">Main Finding</a>
+        <a href="figures.html">Figures</a>
+        <a href="healthcare-case-study.html">Healthcare Case Study</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="reproduce.html">Reproduce</a>
+      </div>
+    </nav>
+
+    <section class="section">
+      <div class="eyebrow">Reproducibility</div>
+      <h1>Exact study entry points and commands.</h1>
+      <p class="lede">
+        These are the real manifests and command patterns used to build the flagship and follow-up studies. Replace the timestamp placeholders with the run directories created by the prior command.
+      </p>
+    </section>
+
+    <section class="section section-grid">
+      <div class="text-panel">
+        <h2>Study manifests</h2>
+        <ul>
+          <li><a href="assets/public/manifests/flagship_universal_collapse_study.yml">flagship_universal_collapse_study.yml</a></li>
+          <li><a href="assets/public/manifests/flagship_healthcare_case_study.yml">flagship_healthcare_case_study.yml</a></li>
+          <li><a href="assets/public/manifests/followup_controlled_threshold_study.yml">followup_controlled_threshold_study.yml</a></li>
+        </ul>
+      </div>
+      <div class="text-panel">
+        <h2>Report links</h2>
+        <ul>
+          <li><a href="studies/flagship/FLAGSHIP_RESEARCH_REPORT.html">Flagship research report</a></li>
+          <li><a href="studies/followup/FOLLOWUP_RESEARCH_REPORT.html">Follow-up research report</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Install</h2>
+      <pre><code>pip install -e .
+pip install -e .[dev]</code></pre>
+    </section>
+
+    <section class="section">
+      <h2>Flagship study</h2>
+      <pre><code>stresslab batch examples/campaigns/flagship_universal_collapse_study.yml --output-dir runs/flagship_universal_collapse_workspace
+stresslab theory runs/flagship_universal_collapse_workspace --output-dir runs/flagship_universal_collapse_theory
+stresslab research runs/flagship_universal_collapse_workspace --theory-dir runs/flagship_universal_collapse_theory/&lt;theory_run_dir&gt; --output-dir runs/flagship_universal_collapse_research
+stresslab batch examples/campaigns/flagship_healthcare_case_study.yml --output-dir runs/flagship_healthcare_case_workspace
+python scripts/build_flagship_study_package.py --workspace runs/flagship_universal_collapse_workspace/&lt;batch_run_dir&gt; --theory-dir runs/flagship_universal_collapse_theory/&lt;theory_run_dir&gt; --research-dir runs/flagship_universal_collapse_research/&lt;research_run_dir&gt; --case-dir runs/flagship_healthcare_case_workspace/&lt;case_batch_run_dir&gt; --output-dir artifacts/flagship_universal_collapse_study --manifest examples/campaigns/flagship_universal_collapse_study.yml --case-manifest examples/campaigns/flagship_healthcare_case_study.yml</code></pre>
+    </section>
+
+    <section class="section">
+      <h2>Controlled follow-up</h2>
+      <pre><code>python scripts/build_followup_controlled_specs.py --output-root generated/followup_controlled_threshold_study
+stresslab batch examples/campaigns/followup_controlled_threshold_study.yml --output-dir runs/followup_controlled_threshold_workspace
+stresslab theory runs/followup_controlled_threshold_workspace --output-dir runs/followup_controlled_threshold_theory
+stresslab research runs/followup_controlled_threshold_workspace --theory-dir runs/followup_controlled_threshold_theory/&lt;theory_run_dir&gt; --output-dir runs/followup_controlled_threshold_research
+python scripts/build_followup_controlled_package.py --workspace runs/followup_controlled_threshold_workspace/&lt;batch_run_dir&gt; --theory-dir runs/followup_controlled_threshold_theory/&lt;theory_run_dir&gt; --research-dir runs/followup_controlled_threshold_research/&lt;research_run_dir&gt; --spec-root generated/followup_controlled_threshold_study --output-dir artifacts/followup_controlled_threshold_study --manifest examples/campaigns/followup_controlled_threshold_study.yml</code></pre>
+    </section>
+
+    <section class="section">
+      <h2>Free GitHub Pages demo</h2>
+      <pre><code>python scripts/build_static_demo_package.py</code></pre>
+      <div class="text-panel" style="margin-top:16px;">
+        <p>
+          This command rebuilds the fully static demo library under <code>docs/assets/static_demo/</code>. The page at
+          <a href="demo.html">demo.html</a> then works without a Python backend by snapping slider settings to the nearest
+          precomputed scenario.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="text-panel">
+        <h2>What you should expect</h2>
+        <p>
+          The flagship study produces the cross-domain threshold result. The controlled follow-up sharpens the claim about coupling. The public narrative package then curates the strongest figures and summaries into a single presentation layer.
+        </p>
+      </div>
+    </section>
+
+    <div class="footer">
+      This page is the public-facing reproducibility guide. The repository also includes deeper package-level repro docs.
+    </div>
+  </div>
+</body>
+</html>

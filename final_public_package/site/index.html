@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StressLab | Utilization-Led Collapse Across Domains</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <nav class="nav">
+      <div class="brand">StressLab</div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="demo.html">Demo</a>
+        <a href="main-finding.html">Main Finding</a>
+        <a href="figures.html">Figures</a>
+        <a href="healthcare-case-study.html">Healthcare Case Study</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="reproduce.html">Reproduce</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Research engine for systemic fragility</div>
+        <h1>Utilization leads the collapse cliff.</h1>
+        <p class="lede">
+          StressLab is an open-source platform for testing, explaining, and discovering collapse behavior in queue, flow, and dependency networks.
+          Its first flagship studies found that across domains, collapse thresholds are primarily utilization-led, while coupling mainly narrows the failure margin rather than moving the threshold much.
+        </p>
+        <div class="claim">
+          Across 5,000 synthetic systems and five topology families, collapse risk accelerated sharply once baseline utilization entered a shared transition band around 0.10 to 0.19. A controlled follow-up over 2,700 fixed-size synthetic systems plus 144 healthcare variants showed that higher coupling reduced shock margin by about 39.2% while shifting the threshold only modestly.
+        </div>
+        <div class="button-row">
+          <a class="button" href="main-finding.html">See the main result</a>
+          <a class="button secondary" href="demo.html">Try the free static demo</a>
+        </div>
+      </div>
+      <div>
+        <img src="assets/public/main_result.png" alt="StressLab main result figure">
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="card">
+        <div class="metric">5,000</div>
+        <div>systems in the flagship discovery study</div>
+      </div>
+      <div class="card">
+        <div class="metric">0.10-0.19</div>
+        <div>shared utilization transition band</div>
+      </div>
+      <div class="card">
+        <div class="metric">39.2%</div>
+        <div>shock-margin reduction under higher coupling in the follow-up</div>
+      </div>
+      <div class="card">
+        <div class="metric">5 + 1</div>
+        <div>synthetic topology families plus healthcare validation</div>
+      </div>
+    </section>
+
+    <section class="section section-grid">
+      <div class="text-panel">
+        <h2>What was discovered</h2>
+        <p>
+          StressLab found evidence for a shared collapse-onset regime across random queue networks, scale-free networks, small-world networks,
+          hierarchical supply networks, and market microstructure graphs. The cleanest cross-domain signal was utilization, not any single topology label.
+        </p>
+        <p>
+          The follow-up study sharpened the interpretation: coupling still matters, but it matters most by shrinking the shock margin to failure rather than by moving the threshold itself very far.
+        </p>
+      </div>
+      <div class="text-panel">
+        <h2>Why people should care</h2>
+        <p>
+          This turns resilience planning into a more tractable question. Instead of treating every system as a one-off story, teams can monitor distance to the utilization cliff,
+          track shock margin, and look for shared warning signals such as variance growth and slower recovery.
+        </p>
+        <p>
+          StressLab packages that logic into a reproducible workflow with synthetic generation, stress search, theory analysis, reporting, and case-study storytelling.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Where to go next</h2>
+      <div class="figure-grid">
+        <div class="figure-card">
+          <img src="assets/public/collapse_overlay.png" alt="Collapse overlay">
+          <div class="copy">
+            <h3>Main Finding</h3>
+            <p class="kicker">See the cross-domain threshold result and the coupling refinement.</p>
+            <p><a href="main-finding.html">Open the main finding page</a></p>
+          </div>
+        </div>
+        <div class="figure-card">
+          <img src="assets/public/followup_main_result.png" alt="Static demo preview">
+          <div class="copy">
+            <h3>Static Demo</h3>
+            <p class="kicker">Use the GitHub Pages-friendly demo to explore preset scenarios without a backend.</p>
+            <p><a href="demo.html">Open the static demo</a></p>
+          </div>
+        </div>
+        <div class="figure-card">
+          <img src="assets/public/healthcare_case.png" alt="Healthcare case study">
+          <div class="copy">
+            <h3>Healthcare Case Study</h3>
+            <p class="kicker">Turn the abstract result into a concrete overload and intervention story.</p>
+            <p><a href="healthcare-case-study.html">Open the case study</a></p>
+          </div>
+        </div>
+        <div class="figure-card">
+          <img src="assets/public/followup_main_result.png" alt="Follow-up main result">
+          <div class="copy">
+            <h3>Reproduce the studies</h3>
+            <p class="kicker">Use the exact manifests and commands that produced the flagship and follow-up packages.</p>
+            <p><a href="reproduce.html">Open the reproduce guide</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      StressLab is an open-source research and decision platform for queue, flow, and dependency networks.
+    </div>
+  </div>
+</body>
+</html>

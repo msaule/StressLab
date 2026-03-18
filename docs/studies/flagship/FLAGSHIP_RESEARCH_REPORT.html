@@ -1,0 +1,450 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>StressLab Flagship Research Report</title>
+  <style>
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      margin: 32px auto;
+      max-width: 1080px;
+      line-height: 1.6;
+      color: #17212b;
+      padding: 0 24px 48px;
+      background: linear-gradient(180deg, #faf8f2 0%, #ffffff 220px);
+    }
+    h1, h2, h3 { color: #102a43; }
+    .lede {
+      font-size: 1.15rem;
+      background: #f4f1e8;
+      border-left: 4px solid #8a6c3d;
+      padding: 16px 18px;
+      border-radius: 6px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin: 24px 0;
+    }
+    .card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 14px 16px;
+      box-shadow: 0 4px 12px rgba(16, 42, 67, 0.06);
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #e5e7eb;
+      padding: 8px 10px;
+      font-size: 0.95rem;
+    }
+    th {
+      background: #f8fafc;
+      text-align: left;
+    }
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>StressLab Flagship Research Report</h1>
+  <p class="lede">Across 5,000 systems and 5 topology families, StressLab found that collapse risk accelerates sharply once baseline utilization enters a shared transition band around 0.10-0.19, with shared variance and recovery-lag warning signals appearing before failure across domains.</p>
+  <div class="grid">
+    <div class="card"><strong>Systems</strong><br />5,000</div>
+    <div class="card"><strong>Topology families</strong><br />5</div>
+    <div class="card"><strong>Shared threshold band</strong><br />0.097–0.186</div>
+    <div class="card"><strong>Healthcare case root</strong><br /><code>runs\flagship_healthcare_case_workspace\2026-03-17_194529_994433_flagship_healthcare_case_study_batch</code></div>
+  </div>
+  <h2>Key Findings</h2>
+  <ul><li>Across 5,000 synthetic systems spanning 5 topology families, collapse risk rises sharply in a shared utilization band centered near 0.152, with the middle 50% of per-topology thresholds lying between 0.097 and 0.186.</li>
+<li>The transition is not identical across domains, but the threshold spread remains compact at 0.140 utilization points, which is consistent with a common collapse-onset regime rather than unrelated topology-specific behavior.</li>
+<li>Utilization is the dominant driver, while secondary structural variables such as capacity_slack, baseline_utilization, routing_entropy, average_degree materially shift how fast collapse accelerates near the threshold.</li>
+<li>Early-warning signals are shared across domains: collapse cases show about 1.09x higher variance growth and 1.16x longer recovery lag than stable cases.</li>
+<li>Cascade tails are broadly heavy-tailed, but in this run a lognormal tail model consistently fits better than a strict power law, suggesting multiplicative cascade growth rather than a single universal power-law exponent.</li>
+<li>The strongest interpretable law candidate from this run is: collapse_probability = -0.1795 + 3.9192 * utilization + 0.2942 * centralization_index.</li></ul>
+  <h2>Threshold Table</h2>
+  <table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>topology_type</th>
+      <th>topology_label</th>
+      <th>critical_utilization</th>
+      <th>transition_low</th>
+      <th>transition_high</th>
+      <th>peak_slope</th>
+      <th>mean_collapse_probability</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>scale_free</td>
+      <td>Scale-Free</td>
+      <td>0.061827</td>
+      <td>0.078714</td>
+      <td>0.180735</td>
+      <td>8.504414</td>
+      <td>0.247000</td>
+    </tr>
+    <tr>
+      <td>random_queue</td>
+      <td>Random Queue</td>
+      <td>0.096818</td>
+      <td>0.104050</td>
+      <td>0.140489</td>
+      <td>12.674950</td>
+      <td>0.137000</td>
+    </tr>
+    <tr>
+      <td>hierarchical_supply</td>
+      <td>Hierarchical Supply</td>
+      <td>0.152108</td>
+      <td>0.106869</td>
+      <td>0.249759</td>
+      <td>9.125011</td>
+      <td>0.558333</td>
+    </tr>
+    <tr>
+      <td>small_world</td>
+      <td>Small-World</td>
+      <td>0.186424</td>
+      <td>0.103293</td>
+      <td>0.205428</td>
+      <td>7.542121</td>
+      <td>0.378000</td>
+    </tr>
+    <tr>
+      <td>market_microstructure</td>
+      <td>Market Microstructure</td>
+      <td>0.202117</td>
+      <td>0.139265</td>
+      <td>0.208130</td>
+      <td>7.207031</td>
+      <td>0.768000</td>
+    </tr>
+  </tbody>
+</table>
+  <h2>Top Predictors</h2>
+  <table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>feature</th>
+      <th>correlation</th>
+      <th>score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>capacity_slack</td>
+      <td>-0.795639</td>
+      <td>0.795639</td>
+    </tr>
+    <tr>
+      <td>baseline_utilization</td>
+      <td>0.795639</td>
+      <td>0.795639</td>
+    </tr>
+    <tr>
+      <td>routing_entropy</td>
+      <td>0.470095</td>
+      <td>0.470095</td>
+    </tr>
+    <tr>
+      <td>average_degree</td>
+      <td>-0.263592</td>
+      <td>0.263592</td>
+    </tr>
+    <tr>
+      <td>edge_count</td>
+      <td>-0.241198</td>
+      <td>0.241198</td>
+    </tr>
+    <tr>
+      <td>clustering_coefficient</td>
+      <td>-0.219609</td>
+      <td>0.219609</td>
+    </tr>
+    <tr>
+      <td>buffer_ratio</td>
+      <td>0.164216</td>
+      <td>0.164216</td>
+    </tr>
+    <tr>
+      <td>max_eigenvector</td>
+      <td>0.150227</td>
+      <td>0.150227</td>
+    </tr>
+    <tr>
+      <td>coupling_strength</td>
+      <td>-0.140501</td>
+      <td>0.140501</td>
+    </tr>
+    <tr>
+      <td>node_count</td>
+      <td>-0.121322</td>
+      <td>0.121322</td>
+    </tr>
+  </tbody>
+</table>
+  <h2>Best Candidate Laws</h2>
+  <table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>target</th>
+      <th>feature</th>
+      <th>model_type</th>
+      <th>coefficient</th>
+      <th>intercept</th>
+      <th>exponent</th>
+      <th>r2</th>
+      <th>observations</th>
+      <th>formula</th>
+      <th>complexity</th>
+      <th>source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>collapse_probability</td>
+      <td>utilization+centralization_index</td>
+      <td>multivariate_linear</td>
+      <td>3.919246</td>
+      <td>-0.179536</td>
+      <td>0.294189</td>
+      <td>0.647397</td>
+      <td>5000</td>
+      <td>collapse_probability = -0.1795 + 3.9192 * utilization + 0.2942 * centralization_index</td>
+      <td>85</td>
+      <td>fragility</td>
+    </tr>
+    <tr>
+      <td>collapse_probability</td>
+      <td>capacity_slack+centralization_index</td>
+      <td>multivariate_linear</td>
+      <td>-3.919246</td>
+      <td>3.739711</td>
+      <td>0.294189</td>
+      <td>0.647397</td>
+      <td>5000</td>
+      <td>collapse_probability = 3.7397 + -3.9192 * capacity_slack + 0.2942 * centralization_index</td>
+      <td>88</td>
+      <td>fragility</td>
+    </tr>
+    <tr>
+      <td>collapse_probability</td>
+      <td>utilization+redundancy_index</td>
+      <td>multivariate_linear</td>
+      <td>3.952377</td>
+      <td>-0.151676</td>
+      <td>0.543641</td>
+      <td>0.637317</td>
+      <td>5000</td>
+      <td>collapse_probability = -0.1517 + 3.9524 * utilization + 0.5436 * redundancy_index</td>
+      <td>81</td>
+      <td>fragility</td>
+    </tr>
+    <tr>
+      <td>collapse_probability</td>
+      <td>capacity_slack+redundancy_index</td>
+      <td>multivariate_linear</td>
+      <td>-3.952377</td>
+      <td>3.800700</td>
+      <td>0.543641</td>
+      <td>0.637317</td>
+      <td>5000</td>
+      <td>collapse_probability = 3.8007 + -3.9524 * capacity_slack + 0.5436 * redundancy_index</td>
+      <td>84</td>
+      <td>fragility</td>
+    </tr>
+    <tr>
+      <td>collapse_probability</td>
+      <td>utilization+coupling_strength</td>
+      <td>multivariate_linear</td>
+      <td>3.871861</td>
+      <td>0.028998</td>
+      <td>-0.346175</td>
+      <td>0.636136</td>
+      <td>5000</td>
+      <td>collapse_probability = 0.0290 + 3.8719 * utilization + -0.3462 * coupling_strength</td>
+      <td>82</td>
+      <td>fragility</td>
+    </tr>
+    <tr>
+      <td>collapse_probability</td>
+      <td>capacity_slack+coupling_strength</td>
+      <td>multivariate_linear</td>
+      <td>-3.871861</td>
+      <td>3.900859</td>
+      <td>-0.346175</td>
+      <td>0.636136</td>
+      <td>5000</td>
+      <td>collapse_probability = 3.9009 + -3.8719 * capacity_slack + -0.3462 * coupling_strength</td>
+      <td>86</td>
+      <td>fragility</td>
+    </tr>
+    <tr>
+      <td>collapse_probability</td>
+      <td>utilization</td>
+      <td>log</td>
+      <td>4.459317</td>
+      <td>-0.124757</td>
+      <td>NaN</td>
+      <td>0.633373</td>
+      <td>5000</td>
+      <td>collapse_probability = -0.1248 + 4.4593 * log1p(utilization)</td>
+      <td>60</td>
+      <td>fragility</td>
+    </tr>
+    <tr>
+      <td>collapse_probability</td>
+      <td>utilization+routing_entropy</td>
+      <td>multivariate_linear</td>
+      <td>3.879833</td>
+      <td>-0.106966</td>
+      <td>0.016518</td>
+      <td>0.633078</td>
+      <td>5000</td>
+      <td>collapse_probability = -0.1070 + 3.8798 * utilization + 0.0165 * routing_entropy</td>
+      <td>80</td>
+      <td>fragility</td>
+    </tr>
+    <tr>
+      <td>collapse_probability</td>
+      <td>capacity_slack+routing_entropy</td>
+      <td>multivariate_linear</td>
+      <td>-3.879833</td>
+      <td>3.772866</td>
+      <td>0.016518</td>
+      <td>0.633078</td>
+      <td>5000</td>
+      <td>collapse_probability = 3.7729 + -3.8798 * capacity_slack + 0.0165 * routing_entropy</td>
+      <td>83</td>
+      <td>fragility</td>
+    </tr>
+    <tr>
+      <td>collapse_probability</td>
+      <td>utilization+capacity_slack</td>
+      <td>multivariate_linear</td>
+      <td>2.568646</td>
+      <td>1.236055</td>
+      <td>-1.332591</td>
+      <td>0.633041</td>
+      <td>5000</td>
+      <td>collapse_probability = 1.2361 + 2.5686 * utilization + -1.3326 * capacity_slack</td>
+      <td>79</td>
+      <td>fragility</td>
+    </tr>
+  </tbody>
+</table>
+  <h2>Heavy-Tail Summary</h2>
+  <table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>topology_type</th>
+      <th>topology_label</th>
+      <th>best_model</th>
+      <th>sample_size</th>
+      <th>alpha</th>
+      <th>log_likelihood_gap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>market_microstructure</td>
+      <td>Market Microstructure</td>
+      <td>lognormal</td>
+      <td>1000</td>
+      <td>1.472681</td>
+      <td>467.405786</td>
+    </tr>
+    <tr>
+      <td>hierarchical_supply</td>
+      <td>Hierarchical Supply</td>
+      <td>lognormal</td>
+      <td>1000</td>
+      <td>1.510951</td>
+      <td>434.811327</td>
+    </tr>
+    <tr>
+      <td>random_queue</td>
+      <td>Random Queue</td>
+      <td>lognormal</td>
+      <td>1000</td>
+      <td>1.784196</td>
+      <td>294.729240</td>
+    </tr>
+    <tr>
+      <td>small_world</td>
+      <td>Small-World</td>
+      <td>lognormal</td>
+      <td>1000</td>
+      <td>1.609559</td>
+      <td>214.329668</td>
+    </tr>
+    <tr>
+      <td>scale_free</td>
+      <td>Scale-Free</td>
+      <td>lognormal</td>
+      <td>998</td>
+      <td>1.840400</td>
+      <td>129.070765</td>
+    </tr>
+  </tbody>
+</table>
+  <h2>Early-Warning Summary</h2>
+  <table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>metric</th>
+      <th>collapse_mean</th>
+      <th>stable_mean</th>
+      <th>fragile_mean</th>
+      <th>robust_mean</th>
+      <th>separation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>variance_increase</td>
+      <td>4.535714e+06</td>
+      <td>4.147499e+06</td>
+      <td>4.573395e+06</td>
+      <td>4.101277e+06</td>
+      <td>388215.362454</td>
+    </tr>
+    <tr>
+      <td>recovery_lag</td>
+      <td>3.387935e+00</td>
+      <td>2.911350e+00</td>
+      <td>3.224520e+00</td>
+      <td>3.064280e+00</td>
+      <td>0.476584</td>
+    </tr>
+    <tr>
+      <td>autocorrelation_increase</td>
+      <td>-2.552599e-02</td>
+      <td>-1.815677e-02</td>
+      <td>-2.247434e-02</td>
+      <td>-2.104629e-02</td>
+      <td>-0.007369</td>
+    </tr>
+  </tbody>
+</table>
+  <h2>Figures</h2>
+  <figure style='margin: 0 0 28px 0;'><img src='figures/collapse_probability_vs_utilization_overlay.png' style='max-width:100%; border:1px solid #ddd; border-radius:8px;' /><figcaption style='margin-top:8px; color:#4a5568;'>Collapse probability vs utilization with all topology families overlaid.</figcaption></figure>
+<figure style='margin: 0 0 28px 0;'><img src='figures/fragility_heatmap_utilization_coupling.png' style='max-width:100%; border:1px solid #ddd; border-radius:8px;' /><figcaption style='margin-top:8px; color:#4a5568;'>Collapse risk heatmap across utilization and coupling bands.</figcaption></figure>
+<figure style='margin: 0 0 28px 0;'><img src='figures/cascade_distribution_by_topology.png' style='max-width:100%; border:1px solid #ddd; border-radius:8px;' /><figcaption style='margin-top:8px; color:#4a5568;'>Cascade size survival curves on log-log axes by topology family.</figcaption></figure>
+<figure style='margin: 0 0 28px 0;'><img src='figures/phase_transition_by_topology.png' style='max-width:100%; border:1px solid #ddd; border-radius:8px;' /><figcaption style='margin-top:8px; color:#4a5568;'>Per-topology collapse transition curves with estimated threshold markers.</figcaption></figure>
+<figure style='margin: 0 0 28px 0;'><img src='figures/early_warning_signal_trends.png' style='max-width:100%; border:1px solid #ddd; border-radius:8px;' /><figcaption style='margin-top:8px; color:#4a5568;'>Shared early-warning signal trends across low- to high-fragility systems.</figcaption></figure>
+<figure style='margin: 0 0 28px 0;'><img src='figures/feature_importance_and_laws.png' style='max-width:100%; border:1px solid #ddd; border-radius:8px;' /><figcaption style='margin-top:8px; color:#4a5568;'>Top collapse predictors alongside ranked symbolic/interpretable law candidates.</figcaption></figure>
+<figure style='margin: 0 0 28px 0;'><img src='figures/healthcare_case_baseline_vs_collapse_vs_intervention.png' style='max-width:100%; border:1px solid #ddd; border-radius:8px;' /><figcaption style='margin-top:8px; color:#4a5568;'>Healthcare case study: baseline, collapse, and optimized response traces.</figcaption></figure>
+<figure style='margin: 0 0 28px 0;'><img src='figures/flagship_main_result.png' style='max-width:100%; border:1px solid #ddd; border-radius:8px;' /><figcaption style='margin-top:8px; color:#4a5568;'>Multi-panel summary figure suitable for README or paper intro.</figcaption></figure>
+</body>
+</html>

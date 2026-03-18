@@ -1,0 +1,247 @@
+<html><body>
+<h1>StressLab Research Report</h1>
+<p>Dataset path: <strong>runs\flagship_universal_collapse_theory\2026-03-17_194529_983395_theory_theory\combined_collapse_dataset.csv</strong><br>Source datasets: <strong>5</strong><br>Systems analyzed: <strong>5000</strong><br>Theory directory: <strong>runs\flagship_universal_collapse_theory\2026-03-17_194529_983395_theory_theory</strong><br>Figures: <strong>6</strong></p>
+<h2>Top Candidate Laws</h2>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>target</th>
+      <th>feature</th>
+      <th>model_type</th>
+      <th>coefficient</th>
+      <th>intercept</th>
+      <th>exponent</th>
+      <th>r2</th>
+      <th>observations</th>
+      <th>formula</th>
+      <th>feature_set</th>
+      <th>expression</th>
+      <th>complexity</th>
+      <th>term_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>failure_shock_budget</td>
+      <td>utilization+centralization_index</td>
+      <td>multivariate_linear</td>
+      <td>-4.414785</td>
+      <td>1.255060</td>
+      <td>-0.226947</td>
+      <td>0.667562</td>
+      <td>5000</td>
+      <td>failure_shock_budget = 1.2551 + -4.4148 * utilization + -0.2269 * centralization_index</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>failure_shock_budget</td>
+      <td>capacity_slack+centralization_index</td>
+      <td>multivariate_linear</td>
+      <td>4.414785</td>
+      <td>-3.159725</td>
+      <td>-0.226947</td>
+      <td>0.667562</td>
+      <td>5000</td>
+      <td>failure_shock_budget = -3.1597 + 4.4148 * capacity_slack + -0.2269 * centralization_index</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>failure_shock_budget</td>
+      <td>capacity_slack</td>
+      <td>log</td>
+      <td>8.148588</td>
+      <td>-4.474999</td>
+      <td>NaN</td>
+      <td>0.661343</td>
+      <td>5000</td>
+      <td>failure_shock_budget = -4.4750 + 8.1486 * log1p(capacity_slack)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>failure_shock_budget</td>
+      <td>capacity_slack+coupling_strength</td>
+      <td>multivariate_linear</td>
+      <td>4.387240</td>
+      <td>-3.254548</td>
+      <td>0.160878</td>
+      <td>0.661104</td>
+      <td>5000</td>
+      <td>failure_shock_budget = -3.2545 + 4.3872 * capacity_slack + 0.1609 * coupling_strength</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>failure_shock_budget</td>
+      <td>utilization+coupling_strength</td>
+      <td>multivariate_linear</td>
+      <td>-4.387240</td>
+      <td>1.132692</td>
+      <td>0.160878</td>
+      <td>0.661104</td>
+      <td>5000</td>
+      <td>failure_shock_budget = 1.1327 + -4.3872 * utilization + 0.1609 * coupling_strength</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>failure_shock_budget</td>
+      <td>utilization+routing_entropy</td>
+      <td>multivariate_linear</td>
+      <td>-4.337035</td>
+      <td>1.222150</td>
+      <td>-0.049279</td>
+      <td>0.660824</td>
+      <td>5000</td>
+      <td>failure_shock_budget = 1.2222 + -4.3370 * utilization + -0.0493 * routing_entropy</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>failure_shock_budget</td>
+      <td>capacity_slack+routing_entropy</td>
+      <td>multivariate_linear</td>
+      <td>4.337035</td>
+      <td>-3.114885</td>
+      <td>-0.049279</td>
+      <td>0.660824</td>
+      <td>5000</td>
+      <td>failure_shock_budget = -3.1149 + 4.3370 * capacity_slack + -0.0493 * routing_entropy</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>failure_shock_budget</td>
+      <td>utilization+redundancy_index</td>
+      <td>multivariate_linear</td>
+      <td>-4.398102</td>
+      <td>1.188023</td>
+      <td>0.029656</td>
+      <td>0.660567</td>
+      <td>5000</td>
+      <td>failure_shock_budget = 1.1880 + -4.3981 * utilization + 0.0297 * redundancy_index</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>failure_shock_budget</td>
+      <td>capacity_slack+redundancy_index</td>
+      <td>multivariate_linear</td>
+      <td>4.398102</td>
+      <td>-3.210079</td>
+      <td>0.029656</td>
+      <td>0.660567</td>
+      <td>5000</td>
+      <td>failure_shock_budget = -3.2101 + 4.3981 * capacity_slack + 0.0297 * redundancy_index</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>failure_shock_budget</td>
+      <td>utilization</td>
+      <td>linear</td>
+      <td>-4.400892</td>
+      <td>1.191031</td>
+      <td>NaN</td>
+      <td>0.660556</td>
+      <td>5000</td>
+      <td>failure_shock_budget = 1.1910 + -4.4009 * utilization</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>failure_shock_budget</td>
+      <td>capacity_slack</td>
+      <td>linear</td>
+      <td>4.400892</td>
+      <td>-3.209861</td>
+      <td>NaN</td>
+      <td>0.660556</td>
+      <td>5000</td>
+      <td>failure_shock_budget = -3.2099 + 4.4009 * capacity_slack</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>failure_shock_budget</td>
+      <td>utilization+capacity_slack</td>
+      <td>multivariate_linear</td>
+      <td>-2.536918</td>
+      <td>-0.672943</td>
+      <td>1.863974</td>
+      <td>0.660556</td>
+      <td>5000</td>
+      <td>failure_shock_budget = -0.6729 + -2.5369 * utilization + 1.8640 * capacity_slack</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Figure Index</h2>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>figure</th>
+      <th>path</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>fragility_curves.png</td>
+      <td>runs\flagship_universal_collapse_research\2026-03-17_194839_777454_research_research\figures\fragility_curves.png</td>
+    </tr>
+    <tr>
+      <td>collapse_heatmap.png</td>
+      <td>runs\flagship_universal_collapse_research\2026-03-17_194839_777454_research_research\figures\collapse_heatmap.png</td>
+    </tr>
+    <tr>
+      <td>phase_transition.png</td>
+      <td>runs\flagship_universal_collapse_research\2026-03-17_194839_777454_research_research\figures\phase_transition.png</td>
+    </tr>
+    <tr>
+      <td>cascade_distribution.png</td>
+      <td>runs\flagship_universal_collapse_research\2026-03-17_194839_777454_research_research\figures\cascade_distribution.png</td>
+    </tr>
+    <tr>
+      <td>feature_importance.png</td>
+      <td>runs\flagship_universal_collapse_research\2026-03-17_194839_777454_research_research\figures\feature_importance.png</td>
+    </tr>
+    <tr>
+      <td>law_discovery.png</td>
+      <td>runs\flagship_universal_collapse_research\2026-03-17_194839_777454_research_research\figures\law_discovery.png</td>
+    </tr>
+  </tbody>
+</table>
+<h2>fragility_curves.png</h2><img src='fragility_curves.png' style='max-width: 100%;'>
+<h2>collapse_heatmap.png</h2><img src='collapse_heatmap.png' style='max-width: 100%;'>
+<h2>phase_transition.png</h2><img src='phase_transition.png' style='max-width: 100%;'>
+<h2>cascade_distribution.png</h2><img src='cascade_distribution.png' style='max-width: 100%;'>
+<h2>feature_importance.png</h2><img src='feature_importance.png' style='max-width: 100%;'>
+<h2>law_discovery.png</h2><img src='law_discovery.png' style='max-width: 100%;'>
+</body></html>

@@ -1,0 +1,9 @@
+{
+  "workspace": "runs\\followup_controlled_threshold_workspace\\2026-03-17_203951_019840_followup_controlled_threshold_study_batch",
+  "theory_dir": "runs\\followup_controlled_threshold_theory\\2026-03-17_210626_471856_theory_theory",
+  "research_dir": "runs\\followup_controlled_threshold_research\\2026-03-17_210822_354767_research_research",
+  "spec_root": "generated\\followup_controlled_threshold_study",
+  "synthetic_rows": 2700,
+  "healthcare_rows": 144,
+  "headline_result": "In the controlled follow-up sweep over 2,700 fixed-size synthetic systems plus 144 healthcare variants, StressLab found that the collapse threshold stays primarily utilization-led, while higher coupling shifts it only modestly on average (0.008 utilization points) but reduces the shock margin to failure by about 39.2%."
+}

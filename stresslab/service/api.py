@@ -20,6 +20,13 @@ import pandas as pd
 
 from stresslab.campaigns import build_artifact_bundle
 from stresslab.campaigns.registry import refresh_registry, registry_paths
+from stresslab.service.demo import (
+    demo_asset_path,
+    get_demo_session,
+    list_demo_presets,
+    prepare_demo_session,
+)
+from stresslab.service.demo_app import render_demo_app
 from stresslab.service.jobs import WorkspaceJobManager
 from stresslab.service.web_app import render_workspace_app
 
@@ -56,6 +63,7 @@ NUMERIC_COLUMNS = [
     "damage_score",
     "execution_duration",
 ]
+DOCS_ROOT = Path(__file__).resolve().parents[2] / "docs"
 
 
 class WorkspaceAPIServer(ThreadingHTTPServer):
@@ -200,6 +208,12 @@ def _build_request_handler() -> type[BaseHTTPRequestHandler]:
                 if parsed.path in {"/app", "/app/"}:
                     self._send_html(render_workspace_app(auth_required=bool(self.server.api_token)))
                     return
+                if parsed.path in {"/demo", "/demo/"}:
+                    self._send_html(render_demo_app(auth_required=bool(self.server.api_token)))
+                    return
+                if parsed.path in {"/docs", "/docs/"}:
+                    self._send_file(DOCS_ROOT / "index.html")
+                    return
                 if parsed.path == "/health":
                     self._send_json(
                         {
@@ -210,6 +224,9 @@ def _build_request_handler() -> type[BaseHTTPRequestHandler]:
                             "auth_required": bool(self.server.api_token),
                         }
                     )
+                    return
+                if parsed.path == "/demo/presets":
+                    self._send_json(list_demo_presets())
                     return
                 if parsed.path == "/registry":
                     limit = _query_int(query, "limit")
@@ -253,6 +270,27 @@ def _build_request_handler() -> type[BaseHTTPRequestHandler]:
                         limit=_query_int(query, "limit"),
                         status=_query_value(query, "status"),
                         expand=_query_bool(query, "expand", False),
+                    )
+                    self._send_json(payload)
+                    return
+                if len(parts) >= 2 and parts[0] == "demo-assets":
+                    relative_path = _safe_relative_path(parts[1:])
+                    self._send_file(demo_asset_path(str(relative_path)))
+                    return
+                if len(parts) >= 2 and parts[0] == "docs":
+                    relative_path = _safe_relative_path(parts[1:])
+                    candidate = (DOCS_ROOT / relative_path).resolve()
+                    if DOCS_ROOT.resolve() not in candidate.parents and candidate != DOCS_ROOT.resolve():
+                        raise ValueError("Invalid docs path.")
+                    if candidate.is_dir():
+                        candidate = candidate / "index.html"
+                    self._send_file(candidate)
+                    return
+                if len(parts) == 3 and parts[0] == "demo" and parts[1] == "sessions":
+                    payload = get_demo_session(
+                        self.server.workspace_root,
+                        self.server.job_manager,
+                        session_id=unquote(parts[2]),
                     )
                     self._send_json(payload)
                     return
@@ -385,6 +423,16 @@ def _build_request_handler() -> type[BaseHTTPRequestHandler]:
                     record = self.server.job_manager.submit_job(payload)
                     self._send_json(record.model_dump(mode="json"), status=HTTPStatus.CREATED)
                     return
+                if parsed.path == "/demo/run":
+                    payload = self._read_json_body()
+                    session = prepare_demo_session(
+                        self.server.workspace_root,
+                        self.server.job_manager,
+                        preset_id=str(payload.get("preset_id", "")).strip(),
+                        controls=payload.get("controls") if isinstance(payload.get("controls"), dict) else {},
+                    )
+                    self._send_json(session, status=HTTPStatus.CREATED)
+                    return
                 self._send_json({"error": "Not found."}, status=HTTPStatus.NOT_FOUND)
             except FileNotFoundError as exc:
                 self._send_json({"error": str(exc)}, status=HTTPStatus.NOT_FOUND)
@@ -417,7 +465,9 @@ def _build_request_handler() -> type[BaseHTTPRequestHandler]:
             token = self.server.api_token
             if not token:
                 return True
-            if path in {"/", "/app", "/app/", "/health"}:
+            if path in {"/", "/app", "/app/", "/demo", "/demo/", "/health", "/demo/presets", "/docs", "/docs/"}:
+                return True
+            if path.startswith("/demo-assets/") or path.startswith("/docs/"):
                 return True
             provided = self._extract_token(query)
             return provided == token
@@ -832,11 +882,16 @@ def _landing_page(root: Path, *, refresh: bool) -> str:
             f"<div class='card'><strong>Queued jobs</strong><br><code>{job_payload['status_counts'].get('queued', 0)}</code></div>",
             f"<div class='card'><strong>Running jobs</strong><br><code>{job_payload['status_counts'].get('running', 0)}</code></div>",
             "</div>",
-            "<p><a href='/app'>Open the interactive StressLab Control Center</a></p>",
+            "<p><a href='/demo'>Open the thin preset demo</a> | <a href='/app'>Open the interactive StressLab Control Center</a> | <a href='/docs/'>Open the static study site</a></p>",
             "<h2>Endpoints</h2>",
             "<ul>",
             "<li><code>/health</code></li>",
             "<li><code>/app</code></li>",
+            "<li><code>/demo</code></li>",
+            "<li><code>/demo/presets</code></li>",
+            "<li><code>POST /demo/run</code></li>",
+            "<li><code>/demo/sessions/&lt;session_id&gt;</code></li>",
+            "<li><code>/docs/</code></li>",
             "<li><code>/registry?limit=20</code></li>",
             "<li><code>/status?limit=25</code></li>",
             "<li><code>/board?recent_limit=20&amp;watch_limit=12&amp;plan_limit=12</code></li>",

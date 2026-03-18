@@ -24,6 +24,7 @@ ALLOWED_COMMANDS = {
     "optimize",
     "research",
     "run",
+    "search",
     "theory",
 }
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -325,10 +326,14 @@ def _normalize_payload(payload: dict[str, Any], *, workspace_root: Path) -> dict
         supported = ", ".join(sorted(ALLOWED_COMMANDS))
         raise ValueError(f"Unsupported job command '{command}'. Supported commands: {supported}.")
     cleaned: dict[str, Any] = {"command": command}
-    if command in {"run", "optimize", "evaluate"}:
+    if command in {"run", "search", "optimize", "evaluate"}:
         cleaned["spec_path"] = str(
             _resolve_input_path(normalized.get("spec_path"), workspace_root=workspace_root)
         )
+    if command == "search":
+        cleaned["objective"] = str(normalized.get("objective", "min_failure")).strip().lower()
+        if cleaned["objective"] not in {"min_failure", "worst_case"}:
+            raise ValueError("Search jobs require objective 'min_failure' or 'worst_case'.")
     if command == "discover" and normalized.get("source_dir") is not None:
         cleaned["source_dir"] = str(
             _resolve_input_path(normalized.get("source_dir"), workspace_root=workspace_root)
@@ -441,8 +446,10 @@ def _resolve_input_path(value: Any, *, workspace_root: Path) -> Path:
 def _build_command(payload: dict[str, Any], *, workspace_root: Path) -> list[str]:
     command = str(payload["command"])
     argv = [sys.executable, "-m", "stresslab.cli.main", command]
-    if command in {"run", "optimize", "evaluate"}:
+    if command in {"run", "search", "optimize", "evaluate"}:
         argv.append(str(payload["spec_path"]))
+    if command == "search":
+        argv.extend(["--objective", str(payload.get("objective", "min_failure"))])
     elif command in {"theory", "research"}:
         argv.append(str(payload["dataset_source"]))
     elif command == "casebook":
@@ -502,7 +509,7 @@ def _build_command(payload: dict[str, Any], *, workspace_root: Path) -> list[str
     if command == "casebook" and payload.get("title") is not None:
         argv.extend(["--title", str(payload["title"])])
 
-    if command in {"run", "optimize", "evaluate", "casebook", "benchmark", "generate", "discover", "theory", "research"}:
+    if command in {"run", "search", "optimize", "evaluate", "casebook", "benchmark", "generate", "discover", "theory", "research"}:
         argv.extend(["--output-dir", str(workspace_root)])
         argv.extend(["--registry-root", str(workspace_root)])
     return argv

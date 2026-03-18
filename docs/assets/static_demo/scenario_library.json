@@ -1,0 +1,3143 @@
+{
+  "claim": "Across domains, collapse thresholds are primarily utilization-led; coupling mainly narrows the failure margin rather than moving the threshold much.",
+  "controls": {
+    "coupling": {
+      "default": 1.0,
+      "label": "Coupling",
+      "max": 1.35,
+      "min": 0.8,
+      "step": 0.05
+    },
+    "shock_intensity": {
+      "default": 1.0,
+      "label": "Shock intensity",
+      "max": 1.5,
+      "min": 0.8,
+      "step": 0.05
+    },
+    "slack": {
+      "default": 1.0,
+      "label": "Slack",
+      "max": 1.3,
+      "min": 0.7,
+      "step": 0.05
+    },
+    "utilization": {
+      "default": 1.0,
+      "label": "Utilization",
+      "max": 1.4,
+      "min": 0.75,
+      "step": 0.05
+    }
+  },
+  "flagship_stats": {
+    "coupling_margin_shrink": "39.2%",
+    "shared_transition_band": "0.10-0.19",
+    "systems": 5000,
+    "topology_families": 5
+  },
+  "mode": "static_precomputed",
+  "presets": [
+    {
+      "default_controls": {
+        "coupling": 1.0,
+        "shock_intensity": 1.0,
+        "slack": 1.0,
+        "utilization": 1.0
+      },
+      "demo_mode": "nearest precomputed scenario",
+      "description": "Emergency department flow with triage, imaging, and ward bottlenecks.",
+      "domain": "healthcare",
+      "id": "healthcare_ed",
+      "label": "Healthcare ED",
+      "scenarios": [
+        {
+          "controls": {
+            "coupling": 0.9,
+            "shock_intensity": 0.9,
+            "slack": 1.15,
+            "utilization": 0.85
+          },
+          "description": "Low utilization, lower shock intensity, and extra slack keep the system far from the cliff.",
+          "id": "buffered_safe",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 1100.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_ward_capacity",
+              "label": "Add ward capacity",
+              "resilience_gain": 0.04928520459634361,
+              "target": "ward"
+            },
+            "best_shock_vector": {
+              "imaging_capacity_fraction": 0.0,
+              "triage_demand_multiplier": 1.0,
+              "ward_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "ward",
+              "imaging",
+              "triage"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Low",
+              "score": 0.34,
+              "utilization": 0.938
+            },
+            "critical_edges": [
+              "triage->imaging",
+              "triage->ward",
+              "imaging->ward"
+            ],
+            "damage_score": 15.685,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 0.85x, coupling 0.90x, slack 1.15x, and shock intensity 0.90x. That places the preset in a low-risk regime with an estimated failure margin of 0.538. The strongest intervention signal is Add ward capacity, focused on ward with an estimated resilience gain of 0.049.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.538,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/healthcare_ed__buffered_safe.png"
+            },
+            "metrics": {
+              "mean_wait": 185.292,
+              "resilience_score": 0.162,
+              "throughput": 0.083,
+              "utilization": 0.938
+            },
+            "narrative_summary": "The dominant bottleneck was 'ward', with the largest backlog integral and wait burden in the run. The most stressed route was 'triage->imaging', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Buffered safe zone"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 0.95,
+            "slack": 1.05,
+            "utilization": 0.95
+          },
+          "description": "A balanced operating point close to the study baseline.",
+          "id": "steady_state",
+          "result": {
+            "baseline_failure": false,
+            "best_intervention": {
+              "cost": 1100.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_ward_capacity",
+              "label": "Add ward capacity",
+              "resilience_gain": 0.0273457812604167,
+              "target": "ward"
+            },
+            "best_shock_vector": {
+              "imaging_capacity_fraction": 0.0,
+              "triage_demand_multiplier": 1.35234375,
+              "ward_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "ward",
+              "imaging",
+              "triage"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.449,
+              "utilization": 0.978
+            },
+            "critical_edges": [
+              "triage->imaging",
+              "triage->ward",
+              "imaging->ward"
+            ],
+            "damage_score": 18.429,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 0.95x, coupling 1.00x, slack 1.05x, and shock intensity 0.95x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.595. The strongest intervention signal is Add ward capacity, focused on ward with an estimated resilience gain of 0.027.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.595,
+              "label": "Buffered",
+              "raw_search_budget": 0.44
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/healthcare_ed__steady_state.png"
+            },
+            "metrics": {
+              "mean_wait": 222.454,
+              "resilience_score": 0.135,
+              "throughput": 0.083,
+              "utilization": 0.945
+            },
+            "narrative_summary": "The dominant bottleneck was 'ward', with the largest backlog integral and wait burden in the run. The most stressed route was 'triage->imaging', which accumulated the most blocking or transfer delay. Class equity also deteriorated by 0.003, indicating the burden was not shared evenly across flow classes.",
+            "scenario_failure": true
+          },
+          "title": "Steady operating point"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.0,
+            "slack": 1.0,
+            "utilization": 1.0
+          },
+          "description": "Reference conditions for the preset with no extra operational pressure.",
+          "id": "baseline",
+          "result": {
+            "baseline_failure": false,
+            "best_intervention": {
+              "cost": 1100.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_ward_capacity",
+              "label": "Add ward capacity",
+              "resilience_gain": 0.03594155779791053,
+              "target": "ward"
+            },
+            "best_shock_vector": {
+              "imaging_capacity_fraction": 0.0,
+              "triage_demand_multiplier": 1.1697265625,
+              "ward_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "ward",
+              "imaging",
+              "triage"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.512,
+              "utilization": 0.98
+            },
+            "critical_edges": [
+              "triage->imaging",
+              "triage->ward",
+              "imaging->ward"
+            ],
+            "damage_score": 17.595,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.00x, coupling 1.00x, slack 1.00x, and shock intensity 1.00x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.475. The strongest intervention signal is Add ward capacity, focused on ward with an estimated resilience gain of 0.036.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.475,
+              "label": "Moderate",
+              "raw_search_budget": 0.212
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/healthcare_ed__baseline.png"
+            },
+            "metrics": {
+              "mean_wait": 209.723,
+              "resilience_score": 0.135,
+              "throughput": 0.083,
+              "utilization": 0.982
+            },
+            "narrative_summary": "The dominant bottleneck was 'ward', with the largest backlog integral and wait burden in the run. The most stressed route was 'triage->imaging', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Baseline"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.0,
+            "slack": 1.0,
+            "utilization": 1.1
+          },
+          "description": "Higher arrivals push the preset toward the shared transition band.",
+          "id": "utilization_push",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 1100.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_ward_capacity",
+              "label": "Add ward capacity",
+              "resilience_gain": 0.0281587982371663,
+              "target": "ward"
+            },
+            "best_shock_vector": {
+              "imaging_capacity_fraction": 0.0,
+              "triage_demand_multiplier": 1.0,
+              "ward_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "ward",
+              "triage",
+              "imaging"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.583,
+              "utilization": 0.985
+            },
+            "critical_edges": [
+              "triage->imaging",
+              "triage->ward",
+              "imaging->ward"
+            ],
+            "damage_score": 17.918,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.10x, coupling 1.00x, slack 1.00x, and shock intensity 1.00x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.351. The strongest intervention signal is Add ward capacity, focused on ward with an estimated resilience gain of 0.028.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.351,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/healthcare_ed__utilization_push.png"
+            },
+            "metrics": {
+              "mean_wait": 208.808,
+              "resilience_score": 0.127,
+              "throughput": 0.081,
+              "utilization": 0.985
+            },
+            "narrative_summary": "The dominant bottleneck was 'ward', with the largest backlog integral and wait burden in the run. The most stressed route was 'triage->imaging', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Utilization push"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.05,
+            "slack": 0.95,
+            "utilization": 1.15
+          },
+          "description": "A utilization-led regime where collapse risk starts to accelerate.",
+          "id": "transition_band",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 1100.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_ward_capacity",
+              "label": "Add ward capacity",
+              "resilience_gain": 0.03325696169224153,
+              "target": "ward"
+            },
+            "best_shock_vector": {
+              "imaging_capacity_fraction": 0.0,
+              "triage_demand_multiplier": 1.0,
+              "ward_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "ward",
+              "triage",
+              "imaging"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.637,
+              "utilization": 0.985
+            },
+            "critical_edges": [
+              "triage->imaging",
+              "triage->ward",
+              "imaging->ward"
+            ],
+            "damage_score": 17.397,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.15x, coupling 1.00x, slack 0.95x, and shock intensity 1.05x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.311. The strongest intervention signal is Add ward capacity, focused on ward with an estimated resilience gain of 0.033.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.311,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/healthcare_ed__transition_band.png"
+            },
+            "metrics": {
+              "mean_wait": 198.139,
+              "resilience_score": 0.118,
+              "throughput": 0.08,
+              "utilization": 0.985
+            },
+            "narrative_summary": "The dominant bottleneck was 'ward', with the largest backlog integral and wait burden in the run. The most stressed route was 'triage->imaging', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Transition band"
+        },
+        {
+          "controls": {
+            "coupling": 1.15,
+            "shock_intensity": 1.0,
+            "slack": 1.0,
+            "utilization": 1.0
+          },
+          "description": "Same basic load, but tighter coupling concentrates flow and narrows shock margin.",
+          "id": "coupling_push",
+          "result": {
+            "baseline_failure": false,
+            "best_intervention": {
+              "cost": 1100.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_ward_capacity",
+              "label": "Add ward capacity",
+              "resilience_gain": 0.03594155779791053,
+              "target": "ward"
+            },
+            "best_shock_vector": {
+              "imaging_capacity_fraction": 0.0,
+              "triage_demand_multiplier": 1.1697265625,
+              "ward_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "ward",
+              "imaging",
+              "triage"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.561,
+              "utilization": 0.98
+            },
+            "critical_edges": [
+              "triage->imaging",
+              "triage->ward",
+              "imaging->ward"
+            ],
+            "damage_score": 17.595,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.00x, coupling 1.15x, slack 1.00x, and shock intensity 1.00x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.440. The strongest intervention signal is Add ward capacity, focused on ward with an estimated resilience gain of 0.036.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.44,
+              "label": "Moderate",
+              "raw_search_budget": 0.212
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/healthcare_ed__coupling_push.png"
+            },
+            "metrics": {
+              "mean_wait": 209.723,
+              "resilience_score": 0.135,
+              "throughput": 0.083,
+              "utilization": 0.982
+            },
+            "narrative_summary": "The dominant bottleneck was 'ward', with the largest backlog integral and wait burden in the run. The most stressed route was 'triage->imaging', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Coupling push"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.0,
+            "slack": 0.85,
+            "utilization": 1.0
+          },
+          "description": "Buffers shrink while other pressures remain near baseline.",
+          "id": "slack_drop",
+          "result": {
+            "baseline_failure": false,
+            "best_intervention": {
+              "cost": 1100.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_ward_capacity",
+              "label": "Add ward capacity",
+              "resilience_gain": 0.029442185464450682,
+              "target": "ward"
+            },
+            "best_shock_vector": {
+              "imaging_capacity_fraction": 0.23151041666666664,
+              "triage_demand_multiplier": 1.2645833333333334,
+              "ward_delay_factor": 1.1653645833333333
+            },
+            "bottlenecks": [
+              "ward",
+              "triage",
+              "imaging"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.511,
+              "utilization": 0.985
+            },
+            "critical_edges": [
+              "triage->imaging",
+              "triage->ward",
+              "imaging->ward"
+            ],
+            "damage_score": 16.191,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.00x, coupling 1.00x, slack 0.85x, and shock intensity 1.00x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.724. The strongest intervention signal is Add ward capacity, focused on ward with an estimated resilience gain of 0.029.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.724,
+              "label": "Buffered",
+              "raw_search_budget": 0.992
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/healthcare_ed__slack_drop.png"
+            },
+            "metrics": {
+              "mean_wait": 198.106,
+              "resilience_score": 0.118,
+              "throughput": 0.078,
+              "utilization": 0.982
+            },
+            "narrative_summary": "The dominant bottleneck was 'ward', with the largest backlog integral and wait burden in the run. The most stressed route was 'triage->imaging', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Slack erosion"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.15,
+            "slack": 1.0,
+            "utilization": 1.0
+          },
+          "description": "A stronger shock probes how much failure margin the preset still retains.",
+          "id": "shock_push",
+          "result": {
+            "baseline_failure": false,
+            "best_intervention": {
+              "cost": 1100.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_ward_capacity",
+              "label": "Add ward capacity",
+              "resilience_gain": 0.04815115440115443,
+              "target": "ward"
+            },
+            "best_shock_vector": {
+              "imaging_capacity_fraction": 0.0,
+              "triage_demand_multiplier": 1.1982421875,
+              "ward_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "ward",
+              "triage",
+              "imaging"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.547,
+              "utilization": 0.983
+            },
+            "critical_edges": [
+              "triage->imaging",
+              "triage->ward",
+              "imaging->ward"
+            ],
+            "damage_score": 18.463,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.00x, coupling 1.00x, slack 1.00x, and shock intensity 1.15x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.467. The strongest intervention signal is Add ward capacity, focused on ward with an estimated resilience gain of 0.048.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.467,
+              "label": "Moderate",
+              "raw_search_budget": 0.248
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/healthcare_ed__shock_push.png"
+            },
+            "metrics": {
+              "mean_wait": 225.814,
+              "resilience_score": 0.125,
+              "throughput": 0.08,
+              "utilization": 0.987
+            },
+            "narrative_summary": "The dominant bottleneck was 'ward', with the largest backlog integral and wait burden in the run. The most stressed route was 'triage->imaging', which accumulated the most blocking or transfer delay. Class equity also deteriorated by 0.063, indicating the burden was not shared evenly across flow classes.",
+            "scenario_failure": true
+          },
+          "title": "Shock push"
+        },
+        {
+          "controls": {
+            "coupling": 1.15,
+            "shock_intensity": 1.05,
+            "slack": 1.0,
+            "utilization": 1.15
+          },
+          "description": "Higher utilization plus tighter coupling make the transition sharper.",
+          "id": "coupled_transition",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 1100.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_ward_capacity",
+              "label": "Add ward capacity",
+              "resilience_gain": 0.03572696023107984,
+              "target": "ward"
+            },
+            "best_shock_vector": {
+              "imaging_capacity_fraction": 0.0,
+              "triage_demand_multiplier": 1.0,
+              "ward_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "ward",
+              "triage",
+              "imaging"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "High",
+              "score": 0.674,
+              "utilization": 0.985
+            },
+            "critical_edges": [
+              "triage->imaging",
+              "triage->ward",
+              "imaging->ward"
+            ],
+            "damage_score": 18.068,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.15x, coupling 1.15x, slack 1.00x, and shock intensity 1.05x. That places the preset in a high-risk regime with an estimated failure margin of 0.284. The strongest intervention signal is Add ward capacity, focused on ward with an estimated resilience gain of 0.036.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.284,
+              "label": "Thin",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/healthcare_ed__coupled_transition.png"
+            },
+            "metrics": {
+              "mean_wait": 205.035,
+              "resilience_score": 0.118,
+              "throughput": 0.08,
+              "utilization": 0.985
+            },
+            "narrative_summary": "The dominant bottleneck was 'ward', with the largest backlog integral and wait burden in the run. The most stressed route was 'triage->imaging', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Coupled transition"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.05,
+            "slack": 0.85,
+            "utilization": 1.15
+          },
+          "description": "Higher utilization and lower slack squeeze the system into a thinner safe band.",
+          "id": "slack_crunch",
+          "result": {
+            "baseline_failure": false,
+            "best_intervention": {
+              "cost": 1100.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_ward_capacity",
+              "label": "Add ward capacity",
+              "resilience_gain": 0.0359974749318832,
+              "target": "ward"
+            },
+            "best_shock_vector": {
+              "imaging_capacity_fraction": 0.008260091145833332,
+              "triage_demand_multiplier": 1.0094401041666667,
+              "ward_delay_factor": 1.0059000651041667
+            },
+            "bottlenecks": [
+              "ward",
+              "triage",
+              "imaging"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.659,
+              "utilization": 0.983
+            },
+            "critical_edges": [
+              "triage->imaging",
+              "triage->ward",
+              "imaging->ward"
+            ],
+            "damage_score": 16.104,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.15x, coupling 1.00x, slack 0.85x, and shock intensity 1.05x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.307. The strongest intervention signal is Add ward capacity, focused on ward with an estimated resilience gain of 0.036.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.307,
+              "label": "Moderate",
+              "raw_search_budget": 0.035
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/healthcare_ed__slack_crunch.png"
+            },
+            "metrics": {
+              "mean_wait": 189.129,
+              "resilience_score": 0.116,
+              "throughput": 0.077,
+              "utilization": 0.985
+            },
+            "narrative_summary": "The dominant bottleneck was 'ward', with the largest backlog integral and wait burden in the run. The most stressed route was 'triage->imaging', which accumulated the most blocking or transfer delay. Class equity also deteriorated by 0.000, indicating the burden was not shared evenly across flow classes.",
+            "scenario_failure": true
+          },
+          "title": "Slack crunch"
+        },
+        {
+          "controls": {
+            "coupling": 1.1,
+            "shock_intensity": 1.15,
+            "slack": 0.9,
+            "utilization": 1.1
+          },
+          "description": "Coupling and slack deterioration combine to create a brittle operating point.",
+          "id": "network_lock",
+          "result": {
+            "baseline_failure": false,
+            "best_intervention": {
+              "cost": 1100.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_ward_capacity",
+              "label": "Add ward capacity",
+              "resilience_gain": 0.0355392766129428,
+              "target": "ward"
+            },
+            "best_shock_vector": {
+              "imaging_capacity_fraction": 0.001979482901632616,
+              "triage_demand_multiplier": 1.0015612702637544,
+              "ward_delay_factor": 1.0007841178518446
+            },
+            "bottlenecks": [
+              "ward",
+              "triage",
+              "imaging"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "High",
+              "score": 0.674,
+              "utilization": 0.989
+            },
+            "critical_edges": [
+              "triage->imaging",
+              "triage->ward",
+              "imaging->ward"
+            ],
+            "damage_score": 17.218,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.10x, coupling 1.10x, slack 0.90x, and shock intensity 1.15x. That places the preset in a high-risk regime with an estimated failure margin of 0.293. The strongest intervention signal is Add ward capacity, focused on ward with an estimated resilience gain of 0.036.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.293,
+              "label": "Thin",
+              "raw_search_budget": 0.007
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/healthcare_ed__network_lock.png"
+            },
+            "metrics": {
+              "mean_wait": 204.626,
+              "resilience_score": 0.12,
+              "throughput": 0.082,
+              "utilization": 0.986
+            },
+            "narrative_summary": "The dominant bottleneck was 'ward', with the largest backlog integral and wait burden in the run. The most stressed route was 'triage->imaging', which accumulated the most blocking or transfer delay. Class equity also deteriorated by 0.002, indicating the burden was not shared evenly across flow classes.",
+            "scenario_failure": true
+          },
+          "title": "Network lock"
+        },
+        {
+          "controls": {
+            "coupling": 1.15,
+            "shock_intensity": 1.2,
+            "slack": 0.8,
+            "utilization": 1.25
+          },
+          "description": "High utilization, high coupling, low slack, and elevated shock intensity push the preset past the cliff.",
+          "id": "collapse_combo",
+          "result": {
+            "baseline_failure": false,
+            "best_intervention": {
+              "cost": 900.0,
+              "failure_prevention_rate": 0.0,
+              "id": "faster_ward_turnover",
+              "label": "Faster ward turnover",
+              "resilience_gain": 0.020278773397052946,
+              "target": "ward"
+            },
+            "best_shock_vector": {
+              "imaging_capacity_fraction": 7.869324813069552e-06,
+              "triage_demand_multiplier": 1.000038977755333,
+              "ward_delay_factor": 1.0000920882691218
+            },
+            "bottlenecks": [
+              "ward",
+              "triage",
+              "imaging"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "High",
+              "score": 0.815,
+              "utilization": 0.992
+            },
+            "critical_edges": [
+              "triage->imaging",
+              "triage->ward",
+              "imaging->ward"
+            ],
+            "damage_score": 16.207,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.25x, coupling 1.15x, slack 0.80x, and shock intensity 1.20x. That places the preset in a high-risk regime with an estimated failure margin of 0.180. The strongest intervention signal is Faster ward turnover, focused on ward with an estimated resilience gain of 0.020.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.18,
+              "label": "Thin",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/healthcare_ed__collapse_combo.png"
+            },
+            "metrics": {
+              "mean_wait": 189.657,
+              "resilience_score": 0.111,
+              "throughput": 0.083,
+              "utilization": 0.991
+            },
+            "narrative_summary": "The dominant bottleneck was 'ward', with the largest backlog integral and wait burden in the run. The most stressed route was 'triage->imaging', which accumulated the most blocking or transfer delay. Class equity also deteriorated by 0.023, indicating the burden was not shared evenly across flow classes.",
+            "scenario_failure": true
+          },
+          "title": "Collapse combo"
+        }
+      ],
+      "story": "Best for showing overload, bottlenecks, and concrete intervention impact."
+    },
+    {
+      "default_controls": {
+        "coupling": 1.0,
+        "shock_intensity": 1.0,
+        "slack": 1.0,
+        "utilization": 1.0
+      },
+      "demo_mode": "nearest precomputed scenario",
+      "description": "Two suppliers feed a plant through a constrained port and warehouse path.",
+      "domain": "supply_chain",
+      "id": "supply_chain_port",
+      "label": "Supply Chain Port",
+      "scenarios": [
+        {
+          "controls": {
+            "coupling": 0.9,
+            "shock_intensity": 0.9,
+            "slack": 1.15,
+            "utilization": 0.85
+          },
+          "description": "Low utilization, lower shock intensity, and extra slack keep the system far from the cliff.",
+          "id": "buffered_safe",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 1500.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_port_shift",
+              "label": "Add port shift",
+              "resilience_gain": 0.058181818181818196,
+              "target": "port"
+            },
+            "best_shock_vector": {
+              "port_delay_factor": 1.0,
+              "port_lane_capacity_fraction": 0.0,
+              "supplier_b_outage_fraction": 0.0
+            },
+            "bottlenecks": [
+              "port",
+              "plant",
+              "supplier_b"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Low",
+              "score": 0.346,
+              "utilization": 0.501
+            },
+            "critical_edges": [
+              "plant->port",
+              "port->warehouse",
+              "warehouse->retailer"
+            ],
+            "damage_score": 10.055,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 0.85x, coupling 0.90x, slack 1.15x, and shock intensity 0.90x. That places the preset in a low-risk regime with an estimated failure margin of 0.538. The strongest intervention signal is Add port shift, focused on port with an estimated resilience gain of 0.058.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.538,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/supply_chain_port__buffered_safe.png"
+            },
+            "metrics": {
+              "mean_wait": 111.499,
+              "resilience_score": 0.129,
+              "throughput": 0.028,
+              "utilization": 0.501
+            },
+            "narrative_summary": "The dominant bottleneck was 'port', with the largest backlog integral and wait burden in the run. The most stressed route was 'plant->port', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Buffered safe zone"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 0.95,
+            "slack": 1.05,
+            "utilization": 0.95
+          },
+          "description": "A balanced operating point close to the study baseline.",
+          "id": "steady_state",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 1500.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_port_shift",
+              "label": "Add port shift",
+              "resilience_gain": 0.046944557546145516,
+              "target": "port"
+            },
+            "best_shock_vector": {
+              "port_delay_factor": 1.0,
+              "port_lane_capacity_fraction": 0.0,
+              "supplier_b_outage_fraction": 0.0
+            },
+            "bottlenecks": [
+              "port",
+              "plant",
+              "supplier_b"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.469,
+              "utilization": 0.503
+            },
+            "critical_edges": [
+              "plant->port",
+              "port->warehouse",
+              "warehouse->retailer"
+            ],
+            "damage_score": 10.027,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 0.95x, coupling 1.00x, slack 1.05x, and shock intensity 0.95x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.441. The strongest intervention signal is Add port shift, focused on port with an estimated resilience gain of 0.047.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.441,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/supply_chain_port__steady_state.png"
+            },
+            "metrics": {
+              "mean_wait": 124.038,
+              "resilience_score": 0.143,
+              "throughput": 0.03,
+              "utilization": 0.503
+            },
+            "narrative_summary": "The dominant bottleneck was 'port', with the largest backlog integral and wait burden in the run. The most stressed route was 'plant->port', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Steady operating point"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.0,
+            "slack": 1.0,
+            "utilization": 1.0
+          },
+          "description": "Reference conditions for the preset with no extra operational pressure.",
+          "id": "baseline",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 1500.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_port_shift",
+              "label": "Add port shift",
+              "resilience_gain": 0.034544901858606925,
+              "target": "port"
+            },
+            "best_shock_vector": {
+              "port_delay_factor": 1.0,
+              "port_lane_capacity_fraction": 0.0,
+              "supplier_b_outage_fraction": 0.0
+            },
+            "bottlenecks": [
+              "port",
+              "plant",
+              "supplier_b"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.52,
+              "utilization": 0.514
+            },
+            "critical_edges": [
+              "plant->port",
+              "port->warehouse",
+              "warehouse->retailer"
+            ],
+            "damage_score": 10.537,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.00x, coupling 1.00x, slack 1.00x, and shock intensity 1.00x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.401. The strongest intervention signal is Add port shift, focused on port with an estimated resilience gain of 0.035.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.401,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/supply_chain_port__baseline.png"
+            },
+            "metrics": {
+              "mean_wait": 130.457,
+              "resilience_score": 0.151,
+              "throughput": 0.024,
+              "utilization": 0.514
+            },
+            "narrative_summary": "The dominant bottleneck was 'port', with the largest backlog integral and wait burden in the run. The most stressed route was 'plant->port', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Baseline"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.0,
+            "slack": 1.0,
+            "utilization": 1.1
+          },
+          "description": "Higher arrivals push the preset toward the shared transition band.",
+          "id": "utilization_push",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 450.0,
+              "failure_prevention_rate": 0.0,
+              "id": "reroute_to_backup",
+              "label": "Reroute to backup lane",
+              "resilience_gain": 0.028455430146038643,
+              "target": "plant->warehouse"
+            },
+            "best_shock_vector": {
+              "port_delay_factor": 1.0,
+              "port_lane_capacity_fraction": 0.0,
+              "supplier_b_outage_fraction": 0.0
+            },
+            "bottlenecks": [
+              "port",
+              "plant",
+              "supplier_b"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.584,
+              "utilization": 0.522
+            },
+            "critical_edges": [
+              "plant->port",
+              "port->warehouse",
+              "warehouse->retailer"
+            ],
+            "damage_score": 9.722,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.10x, coupling 1.00x, slack 1.00x, and shock intensity 1.00x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.351. The strongest intervention signal is Reroute to backup lane, focused on plant->warehouse with an estimated resilience gain of 0.028.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.351,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/supply_chain_port__utilization_push.png"
+            },
+            "metrics": {
+              "mean_wait": 111.613,
+              "resilience_score": 0.118,
+              "throughput": 0.028,
+              "utilization": 0.522
+            },
+            "narrative_summary": "The dominant bottleneck was 'port', with the largest backlog integral and wait burden in the run. The most stressed route was 'plant->port', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Utilization push"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.05,
+            "slack": 0.95,
+            "utilization": 1.15
+          },
+          "description": "A utilization-led regime where collapse risk starts to accelerate.",
+          "id": "transition_band",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 1500.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_port_shift",
+              "label": "Add port shift",
+              "resilience_gain": 0.04978753980856407,
+              "target": "port"
+            },
+            "best_shock_vector": {
+              "port_delay_factor": 1.0,
+              "port_lane_capacity_fraction": 0.0,
+              "supplier_b_outage_fraction": 0.0
+            },
+            "bottlenecks": [
+              "port",
+              "plant",
+              "supplier_b"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.634,
+              "utilization": 0.523
+            },
+            "critical_edges": [
+              "plant->port",
+              "port->warehouse",
+              "supplier_a->plant"
+            ],
+            "damage_score": 10.113,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.15x, coupling 1.00x, slack 0.95x, and shock intensity 1.05x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.311. The strongest intervention signal is Add port shift, focused on port with an estimated resilience gain of 0.050.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.311,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/supply_chain_port__transition_band.png"
+            },
+            "metrics": {
+              "mean_wait": 112.76,
+              "resilience_score": 0.133,
+              "throughput": 0.02,
+              "utilization": 0.523
+            },
+            "narrative_summary": "The dominant bottleneck was 'port', with the largest backlog integral and wait burden in the run. The most stressed route was 'plant->port', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Transition band"
+        },
+        {
+          "controls": {
+            "coupling": 1.15,
+            "shock_intensity": 1.0,
+            "slack": 1.0,
+            "utilization": 1.0
+          },
+          "description": "Same basic load, but tighter coupling concentrates flow and narrows shock margin.",
+          "id": "coupling_push",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 1500.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_port_shift",
+              "label": "Add port shift",
+              "resilience_gain": 0.007693763006873966,
+              "target": "port"
+            },
+            "best_shock_vector": {
+              "port_delay_factor": 1.0,
+              "port_lane_capacity_fraction": 0.0,
+              "supplier_b_outage_fraction": 0.0
+            },
+            "bottlenecks": [
+              "port",
+              "plant",
+              "supplier_b"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.569,
+              "utilization": 0.511
+            },
+            "critical_edges": [
+              "plant->port",
+              "port->warehouse",
+              "warehouse->retailer"
+            ],
+            "damage_score": 10.062,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.00x, coupling 1.15x, slack 1.00x, and shock intensity 1.00x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.366. The strongest intervention signal is Add port shift, focused on port with an estimated resilience gain of 0.008.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.366,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/supply_chain_port__coupling_push.png"
+            },
+            "metrics": {
+              "mean_wait": 119.88,
+              "resilience_score": 0.155,
+              "throughput": 0.025,
+              "utilization": 0.511
+            },
+            "narrative_summary": "The dominant bottleneck was 'port', with the largest backlog integral and wait burden in the run. The most stressed route was 'plant->port', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Coupling push"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.0,
+            "slack": 0.85,
+            "utilization": 1.0
+          },
+          "description": "Buffers shrink while other pressures remain near baseline.",
+          "id": "slack_drop",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 1500.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_port_shift",
+              "label": "Add port shift",
+              "resilience_gain": 0.0415371762740184,
+              "target": "port"
+            },
+            "best_shock_vector": {
+              "port_delay_factor": 1.0,
+              "port_lane_capacity_fraction": 0.0,
+              "supplier_b_outage_fraction": 0.0
+            },
+            "bottlenecks": [
+              "port",
+              "plant",
+              "supplier_b"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.557,
+              "utilization": 0.526
+            },
+            "critical_edges": [
+              "plant->port",
+              "port->warehouse",
+              "warehouse->retailer"
+            ],
+            "damage_score": 9.547,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.00x, coupling 1.00x, slack 0.85x, and shock intensity 1.00x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.377. The strongest intervention signal is Add port shift, focused on port with an estimated resilience gain of 0.042.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.377,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/supply_chain_port__slack_drop.png"
+            },
+            "metrics": {
+              "mean_wait": 115.111,
+              "resilience_score": 0.138,
+              "throughput": 0.022,
+              "utilization": 0.526
+            },
+            "narrative_summary": "The dominant bottleneck was 'port', with the largest backlog integral and wait burden in the run. The most stressed route was 'plant->port', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Slack erosion"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.15,
+            "slack": 1.0,
+            "utilization": 1.0
+          },
+          "description": "A stronger shock probes how much failure margin the preset still retains.",
+          "id": "shock_push",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 700.0,
+              "failure_prevention_rate": 0.0,
+              "id": "backup_route",
+              "label": "Activate warehouse bypass",
+              "resilience_gain": 0.0,
+              "target": "plant->warehouse"
+            },
+            "best_shock_vector": {
+              "port_delay_factor": 1.0,
+              "port_lane_capacity_fraction": 0.0,
+              "supplier_b_outage_fraction": 0.0
+            },
+            "bottlenecks": [
+              "port",
+              "plant",
+              "supplier_b"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.554,
+              "utilization": 0.522
+            },
+            "critical_edges": [
+              "plant->port",
+              "port->warehouse",
+              "warehouse->retailer"
+            ],
+            "damage_score": 10.754,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.00x, coupling 1.00x, slack 1.00x, and shock intensity 1.15x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.380. The strongest intervention signal is Activate warehouse bypass, focused on plant->warehouse with an estimated resilience gain of 0.000.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.38,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/supply_chain_port__shock_push.png"
+            },
+            "metrics": {
+              "mean_wait": 132.238,
+              "resilience_score": 0.151,
+              "throughput": 0.025,
+              "utilization": 0.522
+            },
+            "narrative_summary": "The dominant bottleneck was 'port', with the largest backlog integral and wait burden in the run. The most stressed route was 'plant->port', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Shock push"
+        },
+        {
+          "controls": {
+            "coupling": 1.15,
+            "shock_intensity": 1.05,
+            "slack": 1.0,
+            "utilization": 1.15
+          },
+          "description": "Higher utilization plus tighter coupling make the transition sharper.",
+          "id": "coupled_transition",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 450.0,
+              "failure_prevention_rate": 0.0,
+              "id": "reroute_to_backup",
+              "label": "Reroute to backup lane",
+              "resilience_gain": 0.010069961780138609,
+              "target": "plant->warehouse"
+            },
+            "best_shock_vector": {
+              "port_delay_factor": 1.0,
+              "port_lane_capacity_fraction": 0.0,
+              "supplier_b_outage_fraction": 0.0
+            },
+            "bottlenecks": [
+              "plant",
+              "port",
+              "supplier_b"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "High",
+              "score": 0.671,
+              "utilization": 0.533
+            },
+            "critical_edges": [
+              "plant->port",
+              "port->warehouse",
+              "warehouse->retailer"
+            ],
+            "damage_score": 11.17,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.15x, coupling 1.15x, slack 1.00x, and shock intensity 1.05x. That places the preset in a high-risk regime with an estimated failure margin of 0.284. The strongest intervention signal is Reroute to backup lane, focused on plant->warehouse with an estimated resilience gain of 0.010.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.284,
+              "label": "Thin",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/supply_chain_port__coupled_transition.png"
+            },
+            "metrics": {
+              "mean_wait": 132.921,
+              "resilience_score": 0.136,
+              "throughput": 0.021,
+              "utilization": 0.533
+            },
+            "narrative_summary": "The dominant bottleneck was 'plant', with the largest backlog integral and wait burden in the run. The most stressed route was 'plant->port', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Coupled transition"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.05,
+            "slack": 0.85,
+            "utilization": 1.15
+          },
+          "description": "Higher utilization and lower slack squeeze the system into a thinner safe band.",
+          "id": "slack_crunch",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 450.0,
+              "failure_prevention_rate": 0.0,
+              "id": "reroute_to_backup",
+              "label": "Reroute to backup lane",
+              "resilience_gain": 0.041398062210710615,
+              "target": "plant->warehouse"
+            },
+            "best_shock_vector": {
+              "port_delay_factor": 1.0,
+              "port_lane_capacity_fraction": 0.0,
+              "supplier_b_outage_fraction": 0.0
+            },
+            "bottlenecks": [
+              "port",
+              "plant",
+              "supplier_b"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "High",
+              "score": 0.664,
+              "utilization": 0.529
+            },
+            "critical_edges": [
+              "plant->port",
+              "port->warehouse",
+              "warehouse->retailer"
+            ],
+            "damage_score": 9.601,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.15x, coupling 1.00x, slack 0.85x, and shock intensity 1.05x. That places the preset in a high-risk regime with an estimated failure margin of 0.295. The strongest intervention signal is Reroute to backup lane, focused on plant->warehouse with an estimated resilience gain of 0.041.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.295,
+              "label": "Thin",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/supply_chain_port__slack_crunch.png"
+            },
+            "metrics": {
+              "mean_wait": 116.936,
+              "resilience_score": 0.098,
+              "throughput": 0.022,
+              "utilization": 0.529
+            },
+            "narrative_summary": "The dominant bottleneck was 'port', with the largest backlog integral and wait burden in the run. The most stressed route was 'plant->port', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Slack crunch"
+        },
+        {
+          "controls": {
+            "coupling": 1.1,
+            "shock_intensity": 1.15,
+            "slack": 0.9,
+            "utilization": 1.1
+          },
+          "description": "Coupling and slack deterioration combine to create a brittle operating point.",
+          "id": "network_lock",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 450.0,
+              "failure_prevention_rate": 0.0,
+              "id": "reroute_to_backup",
+              "label": "Reroute to backup lane",
+              "resilience_gain": 0.005923401493021729,
+              "target": "plant->warehouse"
+            },
+            "best_shock_vector": {
+              "port_delay_factor": 1.0,
+              "port_lane_capacity_fraction": 0.0,
+              "supplier_b_outage_fraction": 0.0
+            },
+            "bottlenecks": [
+              "port",
+              "plant",
+              "supplier_b"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "High",
+              "score": 0.67,
+              "utilization": 0.513
+            },
+            "critical_edges": [
+              "plant->port",
+              "port->warehouse",
+              "warehouse->retailer"
+            ],
+            "damage_score": 9.417,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.10x, coupling 1.10x, slack 0.90x, and shock intensity 1.15x. That places the preset in a high-risk regime with an estimated failure margin of 0.290. The strongest intervention signal is Reroute to backup lane, focused on plant->warehouse with an estimated resilience gain of 0.006.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.29,
+              "label": "Thin",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/supply_chain_port__network_lock.png"
+            },
+            "metrics": {
+              "mean_wait": 110.824,
+              "resilience_score": 0.146,
+              "throughput": 0.023,
+              "utilization": 0.513
+            },
+            "narrative_summary": "The dominant bottleneck was 'port', with the largest backlog integral and wait burden in the run. The most stressed route was 'plant->port', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Network lock"
+        },
+        {
+          "controls": {
+            "coupling": 1.15,
+            "shock_intensity": 1.2,
+            "slack": 0.8,
+            "utilization": 1.25
+          },
+          "description": "High utilization, high coupling, low slack, and elevated shock intensity push the preset past the cliff.",
+          "id": "collapse_combo",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 1500.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_port_shift",
+              "label": "Add port shift",
+              "resilience_gain": 0.04184001126250199,
+              "target": "port"
+            },
+            "best_shock_vector": {
+              "port_delay_factor": 1.0,
+              "port_lane_capacity_fraction": 0.0,
+              "supplier_b_outage_fraction": 0.0
+            },
+            "bottlenecks": [
+              "plant",
+              "port",
+              "supplier_b"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "High",
+              "score": 0.817,
+              "utilization": 0.551
+            },
+            "critical_edges": [
+              "plant->port",
+              "port->warehouse",
+              "warehouse->retailer"
+            ],
+            "damage_score": 9.422,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.25x, coupling 1.15x, slack 0.80x, and shock intensity 1.20x. That places the preset in a high-risk regime with an estimated failure margin of 0.180. The strongest intervention signal is Add port shift, focused on port with an estimated resilience gain of 0.042.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.18,
+              "label": "Thin",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/supply_chain_port__collapse_combo.png"
+            },
+            "metrics": {
+              "mean_wait": 114.002,
+              "resilience_score": 0.1,
+              "throughput": 0.025,
+              "utilization": 0.551
+            },
+            "narrative_summary": "The dominant bottleneck was 'plant', with the largest backlog integral and wait burden in the run. The most stressed route was 'plant->port', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Collapse combo"
+        }
+      ],
+      "story": "Best for showing how coupling tightens the failure buffer in a logistics network."
+    },
+    {
+      "default_controls": {
+        "coupling": 1.0,
+        "shock_intensity": 1.0,
+        "slack": 1.0,
+        "utilization": 1.0
+      },
+      "demo_mode": "nearest precomputed scenario",
+      "description": "Liquidity withdrawal, venue latency, and maker-pool degradation in a market graph.",
+      "domain": "markets",
+      "id": "market_liquidity",
+      "label": "Market Liquidity",
+      "scenarios": [
+        {
+          "controls": {
+            "coupling": 0.9,
+            "shock_intensity": 0.9,
+            "slack": 1.15,
+            "utilization": 0.85
+          },
+          "description": "Low utilization, lower shock intensity, and extra slack keep the system far from the cliff.",
+          "id": "buffered_safe",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 400.0,
+              "failure_prevention_rate": 0.0,
+              "id": "gateway_priority_lock",
+              "label": "Promote priority routing",
+              "resilience_gain": 0.0,
+              "target": "order_gateway"
+            },
+            "best_shock_vector": {
+              "maker_pool_capacity_loss": 0.0,
+              "order_flow_surge": 1.0,
+              "venue_delay_factor": 1.0,
+              "venue_link_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "venue",
+              "maker_pool",
+              "order_gateway"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Low",
+              "score": 0.286,
+              "utilization": 0.411
+            },
+            "critical_edges": [
+              "maker_pool->venue",
+              "venue->clearing",
+              "order_gateway->maker_pool"
+            ],
+            "damage_score": 1.032,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 0.85x, coupling 0.90x, slack 1.15x, and shock intensity 0.90x. That places the preset in a low-risk regime with an estimated failure margin of 0.538. The strongest intervention signal is Promote priority routing, focused on order_gateway with an estimated resilience gain of 0.000.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.538,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/market_liquidity__buffered_safe.png"
+            },
+            "metrics": {
+              "mean_wait": 4.012,
+              "resilience_score": 0.459,
+              "throughput": 0.157,
+              "utilization": 0.411
+            },
+            "narrative_summary": "The dominant bottleneck was 'venue', with the largest backlog integral and wait burden in the run. The most stressed route was 'maker_pool->venue', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Buffered safe zone"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 0.95,
+            "slack": 1.05,
+            "utilization": 0.95
+          },
+          "description": "A balanced operating point close to the study baseline.",
+          "id": "steady_state",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 400.0,
+              "failure_prevention_rate": 0.0,
+              "id": "gateway_priority_lock",
+              "label": "Promote priority routing",
+              "resilience_gain": 0.0,
+              "target": "order_gateway"
+            },
+            "best_shock_vector": {
+              "maker_pool_capacity_loss": 0.0,
+              "order_flow_surge": 1.0,
+              "venue_delay_factor": 1.0,
+              "venue_link_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "venue",
+              "maker_pool",
+              "order_gateway"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.405,
+              "utilization": 0.45
+            },
+            "critical_edges": [
+              "maker_pool->venue",
+              "order_gateway->maker_pool",
+              "venue->clearing"
+            ],
+            "damage_score": 1.722,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 0.95x, coupling 1.00x, slack 1.05x, and shock intensity 0.95x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.441. The strongest intervention signal is Promote priority routing, focused on order_gateway with an estimated resilience gain of 0.000.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.441,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/market_liquidity__steady_state.png"
+            },
+            "metrics": {
+              "mean_wait": 8.96,
+              "resilience_score": 0.508,
+              "throughput": 0.167,
+              "utilization": 0.45
+            },
+            "narrative_summary": "The dominant bottleneck was 'venue', with the largest backlog integral and wait burden in the run. The most stressed route was 'maker_pool->venue', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Steady operating point"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.0,
+            "slack": 1.0,
+            "utilization": 1.0
+          },
+          "description": "Reference conditions for the preset with no extra operational pressure.",
+          "id": "baseline",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 900.0,
+              "failure_prevention_rate": 0.0,
+              "id": "fast_lane_venue",
+              "label": "Enable fast lane venue processing",
+              "resilience_gain": 0.005495911094031913,
+              "target": "venue"
+            },
+            "best_shock_vector": {
+              "maker_pool_capacity_loss": 0.0,
+              "order_flow_surge": 1.0,
+              "venue_delay_factor": 1.0,
+              "venue_link_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "venue",
+              "maker_pool",
+              "order_gateway"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.468,
+              "utilization": 0.466
+            },
+            "critical_edges": [
+              "maker_pool->venue",
+              "order_gateway->maker_pool",
+              "venue->clearing"
+            ],
+            "damage_score": 1.845,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.00x, coupling 1.00x, slack 1.00x, and shock intensity 1.00x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.401. The strongest intervention signal is Enable fast lane venue processing, focused on venue with an estimated resilience gain of 0.005.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.401,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/market_liquidity__baseline.png"
+            },
+            "metrics": {
+              "mean_wait": 9.227,
+              "resilience_score": 0.439,
+              "throughput": 0.172,
+              "utilization": 0.466
+            },
+            "narrative_summary": "The dominant bottleneck was 'venue', with the largest backlog integral and wait burden in the run. The most stressed route was 'maker_pool->venue', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Baseline"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.0,
+            "slack": 1.0,
+            "utilization": 1.1
+          },
+          "description": "Higher arrivals push the preset toward the shared transition band.",
+          "id": "utilization_push",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 900.0,
+              "failure_prevention_rate": 0.0,
+              "id": "fast_lane_venue",
+              "label": "Enable fast lane venue processing",
+              "resilience_gain": 0.024862690143073463,
+              "target": "venue"
+            },
+            "best_shock_vector": {
+              "maker_pool_capacity_loss": 0.0,
+              "order_flow_surge": 1.0,
+              "venue_delay_factor": 1.0,
+              "venue_link_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "venue",
+              "maker_pool",
+              "order_gateway"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.537,
+              "utilization": 0.47
+            },
+            "critical_edges": [
+              "maker_pool->venue",
+              "order_gateway->maker_pool",
+              "venue->clearing"
+            ],
+            "damage_score": 2.199,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.10x, coupling 1.00x, slack 1.00x, and shock intensity 1.00x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.351. The strongest intervention signal is Enable fast lane venue processing, focused on venue with an estimated resilience gain of 0.025.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.351,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/market_liquidity__utilization_push.png"
+            },
+            "metrics": {
+              "mean_wait": 10.795,
+              "resilience_score": 0.383,
+              "throughput": 0.168,
+              "utilization": 0.47
+            },
+            "narrative_summary": "The dominant bottleneck was 'venue', with the largest backlog integral and wait burden in the run. The most stressed route was 'maker_pool->venue', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Utilization push"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.05,
+            "slack": 0.95,
+            "utilization": 1.15
+          },
+          "description": "A utilization-led regime where collapse risk starts to accelerate.",
+          "id": "transition_band",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 1400.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_backup_liquidity",
+              "label": "Add backup liquidity",
+              "resilience_gain": 0.032296134112879016,
+              "target": "maker_pool"
+            },
+            "best_shock_vector": {
+              "maker_pool_capacity_loss": 0.0,
+              "order_flow_surge": 1.0,
+              "venue_delay_factor": 1.0,
+              "venue_link_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "maker_pool",
+              "venue",
+              "order_gateway"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.588,
+              "utilization": 0.491
+            },
+            "critical_edges": [
+              "maker_pool->venue",
+              "order_gateway->maker_pool",
+              "venue->clearing"
+            ],
+            "damage_score": 2.621,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.15x, coupling 1.00x, slack 0.95x, and shock intensity 1.05x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.311. The strongest intervention signal is Add backup liquidity, focused on maker_pool with an estimated resilience gain of 0.032.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.311,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/market_liquidity__transition_band.png"
+            },
+            "metrics": {
+              "mean_wait": 13.668,
+              "resilience_score": 0.388,
+              "throughput": 0.172,
+              "utilization": 0.491
+            },
+            "narrative_summary": "The dominant bottleneck was 'maker_pool', with the largest backlog integral and wait burden in the run. The most stressed route was 'maker_pool->venue', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Transition band"
+        },
+        {
+          "controls": {
+            "coupling": 1.15,
+            "shock_intensity": 1.0,
+            "slack": 1.0,
+            "utilization": 1.0
+          },
+          "description": "Same basic load, but tighter coupling concentrates flow and narrows shock margin.",
+          "id": "coupling_push",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 900.0,
+              "failure_prevention_rate": 0.0,
+              "id": "fast_lane_venue",
+              "label": "Enable fast lane venue processing",
+              "resilience_gain": 0.03148079564212253,
+              "target": "venue"
+            },
+            "best_shock_vector": {
+              "maker_pool_capacity_loss": 0.0,
+              "order_flow_surge": 1.0,
+              "venue_delay_factor": 1.0,
+              "venue_link_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "venue",
+              "maker_pool",
+              "order_gateway"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.522,
+              "utilization": 0.421
+            },
+            "critical_edges": [
+              "maker_pool->venue",
+              "order_gateway->maker_pool",
+              "venue->clearing"
+            ],
+            "damage_score": 0.849,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.00x, coupling 1.15x, slack 1.00x, and shock intensity 1.00x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.366. The strongest intervention signal is Enable fast lane venue processing, focused on venue with an estimated resilience gain of 0.031.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.366,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/market_liquidity__coupling_push.png"
+            },
+            "metrics": {
+              "mean_wait": 2.53,
+              "resilience_score": 0.414,
+              "throughput": 0.149,
+              "utilization": 0.421
+            },
+            "narrative_summary": "The dominant bottleneck was 'venue', with the largest backlog integral and wait burden in the run. The most stressed route was 'maker_pool->venue', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Coupling push"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.0,
+            "slack": 0.85,
+            "utilization": 1.0
+          },
+          "description": "Buffers shrink while other pressures remain near baseline.",
+          "id": "slack_drop",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 900.0,
+              "failure_prevention_rate": 0.0,
+              "id": "fast_lane_venue",
+              "label": "Enable fast lane venue processing",
+              "resilience_gain": 0.005495911094031913,
+              "target": "venue"
+            },
+            "best_shock_vector": {
+              "maker_pool_capacity_loss": 0.0,
+              "order_flow_surge": 1.0,
+              "venue_delay_factor": 1.0,
+              "venue_link_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "venue",
+              "maker_pool",
+              "order_gateway"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.503,
+              "utilization": 0.466
+            },
+            "critical_edges": [
+              "maker_pool->venue",
+              "order_gateway->maker_pool",
+              "venue->clearing"
+            ],
+            "damage_score": 1.845,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.00x, coupling 1.00x, slack 0.85x, and shock intensity 1.00x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.377. The strongest intervention signal is Enable fast lane venue processing, focused on venue with an estimated resilience gain of 0.005.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.377,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/market_liquidity__slack_drop.png"
+            },
+            "metrics": {
+              "mean_wait": 9.227,
+              "resilience_score": 0.439,
+              "throughput": 0.172,
+              "utilization": 0.466
+            },
+            "narrative_summary": "The dominant bottleneck was 'venue', with the largest backlog integral and wait burden in the run. The most stressed route was 'maker_pool->venue', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Slack erosion"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.15,
+            "slack": 1.0,
+            "utilization": 1.0
+          },
+          "description": "A stronger shock probes how much failure margin the preset still retains.",
+          "id": "shock_push",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 1400.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_backup_liquidity",
+              "label": "Add backup liquidity",
+              "resilience_gain": 0.0907526971668623,
+              "target": "maker_pool"
+            },
+            "best_shock_vector": {
+              "maker_pool_capacity_loss": 0.0,
+              "order_flow_surge": 1.0,
+              "venue_delay_factor": 1.0,
+              "venue_link_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "maker_pool",
+              "venue",
+              "order_gateway"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.507,
+              "utilization": 0.484
+            },
+            "critical_edges": [
+              "maker_pool->venue",
+              "order_gateway->maker_pool",
+              "venue->clearing"
+            ],
+            "damage_score": 2.621,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.00x, coupling 1.00x, slack 1.00x, and shock intensity 1.15x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.380. The strongest intervention signal is Add backup liquidity, focused on maker_pool with an estimated resilience gain of 0.091.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.38,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/market_liquidity__shock_push.png"
+            },
+            "metrics": {
+              "mean_wait": 14.857,
+              "resilience_score": 0.415,
+              "throughput": 0.164,
+              "utilization": 0.484
+            },
+            "narrative_summary": "The dominant bottleneck was 'maker_pool', with the largest backlog integral and wait burden in the run. The most stressed route was 'maker_pool->venue', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Shock push"
+        },
+        {
+          "controls": {
+            "coupling": 1.15,
+            "shock_intensity": 1.05,
+            "slack": 1.0,
+            "utilization": 1.15
+          },
+          "description": "Higher utilization plus tighter coupling make the transition sharper.",
+          "id": "coupled_transition",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 900.0,
+              "failure_prevention_rate": 0.0,
+              "id": "fast_lane_venue",
+              "label": "Enable fast lane venue processing",
+              "resilience_gain": 0.007119428902180203,
+              "target": "venue"
+            },
+            "best_shock_vector": {
+              "maker_pool_capacity_loss": 0.0,
+              "order_flow_surge": 1.0,
+              "venue_delay_factor": 1.0,
+              "venue_link_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "maker_pool",
+              "venue",
+              "order_gateway"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.63,
+              "utilization": 0.467
+            },
+            "critical_edges": [
+              "maker_pool->venue",
+              "order_gateway->maker_pool",
+              "venue->clearing"
+            ],
+            "damage_score": 1.818,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.15x, coupling 1.15x, slack 1.00x, and shock intensity 1.05x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.284. The strongest intervention signal is Enable fast lane venue processing, focused on venue with an estimated resilience gain of 0.007.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.284,
+              "label": "Thin",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/market_liquidity__coupled_transition.png"
+            },
+            "metrics": {
+              "mean_wait": 9.055,
+              "resilience_score": 0.365,
+              "throughput": 0.153,
+              "utilization": 0.467
+            },
+            "narrative_summary": "The dominant bottleneck was 'maker_pool', with the largest backlog integral and wait burden in the run. The most stressed route was 'maker_pool->venue', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Coupled transition"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.05,
+            "slack": 0.85,
+            "utilization": 1.15
+          },
+          "description": "Higher utilization and lower slack squeeze the system into a thinner safe band.",
+          "id": "slack_crunch",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 1400.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_backup_liquidity",
+              "label": "Add backup liquidity",
+              "resilience_gain": 0.032296134112879016,
+              "target": "maker_pool"
+            },
+            "best_shock_vector": {
+              "maker_pool_capacity_loss": 0.0,
+              "order_flow_surge": 1.0,
+              "venue_delay_factor": 1.0,
+              "venue_link_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "maker_pool",
+              "venue",
+              "order_gateway"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.612,
+              "utilization": 0.491
+            },
+            "critical_edges": [
+              "maker_pool->venue",
+              "order_gateway->maker_pool",
+              "venue->clearing"
+            ],
+            "damage_score": 2.621,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.15x, coupling 1.00x, slack 0.85x, and shock intensity 1.05x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.295. The strongest intervention signal is Add backup liquidity, focused on maker_pool with an estimated resilience gain of 0.032.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.295,
+              "label": "Thin",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/market_liquidity__slack_crunch.png"
+            },
+            "metrics": {
+              "mean_wait": 13.668,
+              "resilience_score": 0.388,
+              "throughput": 0.172,
+              "utilization": 0.491
+            },
+            "narrative_summary": "The dominant bottleneck was 'maker_pool', with the largest backlog integral and wait burden in the run. The most stressed route was 'maker_pool->venue', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Slack crunch"
+        },
+        {
+          "controls": {
+            "coupling": 1.1,
+            "shock_intensity": 1.15,
+            "slack": 0.9,
+            "utilization": 1.1
+          },
+          "description": "Coupling and slack deterioration combine to create a brittle operating point.",
+          "id": "network_lock",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 1400.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_backup_liquidity",
+              "label": "Add backup liquidity",
+              "resilience_gain": 0.08349994188285659,
+              "target": "maker_pool"
+            },
+            "best_shock_vector": {
+              "maker_pool_capacity_loss": 0.0,
+              "order_flow_surge": 1.0,
+              "venue_delay_factor": 1.0,
+              "venue_link_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "maker_pool",
+              "venue",
+              "order_gateway"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.625,
+              "utilization": 0.459
+            },
+            "critical_edges": [
+              "maker_pool->venue",
+              "order_gateway->maker_pool",
+              "venue->clearing"
+            ],
+            "damage_score": 1.247,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.10x, coupling 1.10x, slack 0.90x, and shock intensity 1.15x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.290. The strongest intervention signal is Add backup liquidity, focused on maker_pool with an estimated resilience gain of 0.083.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.29,
+              "label": "Thin",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/market_liquidity__network_lock.png"
+            },
+            "metrics": {
+              "mean_wait": 5.157,
+              "resilience_score": 0.396,
+              "throughput": 0.158,
+              "utilization": 0.459
+            },
+            "narrative_summary": "The dominant bottleneck was 'maker_pool', with the largest backlog integral and wait burden in the run. The most stressed route was 'maker_pool->venue', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Network lock"
+        },
+        {
+          "controls": {
+            "coupling": 1.15,
+            "shock_intensity": 1.2,
+            "slack": 0.8,
+            "utilization": 1.25
+          },
+          "description": "High utilization, high coupling, low slack, and elevated shock intensity push the preset past the cliff.",
+          "id": "collapse_combo",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 400.0,
+              "failure_prevention_rate": 0.0,
+              "id": "gateway_priority_lock",
+              "label": "Promote priority routing",
+              "resilience_gain": 0.0,
+              "target": "order_gateway"
+            },
+            "best_shock_vector": {
+              "maker_pool_capacity_loss": 0.0,
+              "order_flow_surge": 1.0,
+              "venue_delay_factor": 1.0,
+              "venue_link_delay_factor": 1.0
+            },
+            "bottlenecks": [
+              "maker_pool",
+              "venue",
+              "order_gateway"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "High",
+              "score": 0.774,
+              "utilization": 0.466
+            },
+            "critical_edges": [
+              "order_gateway->maker_pool",
+              "maker_pool->venue",
+              "venue->clearing"
+            ],
+            "damage_score": 1.35,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.25x, coupling 1.15x, slack 0.80x, and shock intensity 1.20x. That places the preset in a high-risk regime with an estimated failure margin of 0.180. The strongest intervention signal is Promote priority routing, focused on order_gateway with an estimated resilience gain of 0.000.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.18,
+              "label": "Thin",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/market_liquidity__collapse_combo.png"
+            },
+            "metrics": {
+              "mean_wait": 5.558,
+              "resilience_score": 0.336,
+              "throughput": 0.152,
+              "utilization": 0.466
+            },
+            "narrative_summary": "The dominant bottleneck was 'maker_pool', with the largest backlog integral and wait burden in the run. The most stressed route was 'order_gateway->maker_pool', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Collapse combo"
+        }
+      ],
+      "story": "Best for showing how a stressed network can look fine until the shock margin disappears."
+    },
+    {
+      "default_controls": {
+        "coupling": 1.0,
+        "shock_intensity": 1.0,
+        "slack": 1.0,
+        "utilization": 1.0
+      },
+      "demo_mode": "nearest precomputed scenario",
+      "description": "A deterministic small-world synthetic network used as a generic demo preset.",
+      "domain": "synthetic",
+      "id": "synthetic_generic",
+      "label": "Synthetic Generic",
+      "scenarios": [
+        {
+          "controls": {
+            "coupling": 0.9,
+            "shock_intensity": 0.9,
+            "slack": 1.15,
+            "utilization": 0.85
+          },
+          "description": "Low utilization, lower shock intensity, and extra slack keep the system far from the cliff.",
+          "id": "buffered_safe",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 250.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_staff__n04",
+              "label": "Add capacity at n04",
+              "resilience_gain": 0.0,
+              "target": "n04"
+            },
+            "best_shock_vector": {
+              "capacity__n04": 0.0,
+              "demand__n00": 1.0,
+              "edge_cap__n04__n06": 0.0
+            },
+            "bottlenecks": [
+              "n07",
+              "n06",
+              "n05"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Low",
+              "score": 0.352,
+              "utilization": 0.242
+            },
+            "critical_edges": [
+              "n06->n07",
+              "n07->n05",
+              "n05->n07"
+            ],
+            "damage_score": 0.643,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 0.85x, coupling 0.90x, slack 1.15x, and shock intensity 0.90x. That places the preset in a low-risk regime with an estimated failure margin of 0.538. The strongest intervention signal is Add capacity at n04, focused on n04 with an estimated resilience gain of 0.000.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.538,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/synthetic_generic__buffered_safe.png"
+            },
+            "metrics": {
+              "mean_wait": 0.805,
+              "resilience_score": 0.095,
+              "throughput": 0.0,
+              "utilization": 0.242
+            },
+            "narrative_summary": "The dominant bottleneck was 'n07', with the largest backlog integral and wait burden in the run. The most stressed route was 'n06->n07', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Buffered safe zone"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 0.95,
+            "slack": 1.05,
+            "utilization": 0.95
+          },
+          "description": "A balanced operating point close to the study baseline.",
+          "id": "steady_state",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 250.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_staff__n04",
+              "label": "Add capacity at n04",
+              "resilience_gain": 0.0,
+              "target": "n04"
+            },
+            "best_shock_vector": {
+              "capacity__n04": 0.0,
+              "demand__n00": 1.0,
+              "edge_cap__n04__n06": 0.0
+            },
+            "bottlenecks": [
+              "n07",
+              "n06",
+              "n00"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.478,
+              "utilization": 0.281
+            },
+            "critical_edges": [
+              "n07->n01",
+              "n06->n07",
+              "n07->n05"
+            ],
+            "damage_score": 0.858,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 0.95x, coupling 1.00x, slack 1.05x, and shock intensity 0.95x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.441. The strongest intervention signal is Add capacity at n04, focused on n04 with an estimated resilience gain of 0.000.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.441,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/synthetic_generic__steady_state.png"
+            },
+            "metrics": {
+              "mean_wait": 2.084,
+              "resilience_score": 0.095,
+              "throughput": 0.0,
+              "utilization": 0.281
+            },
+            "narrative_summary": "The dominant bottleneck was 'n07', with the largest backlog integral and wait burden in the run. The most stressed route was 'n07->n01', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Steady operating point"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.0,
+            "slack": 1.0,
+            "utilization": 1.0
+          },
+          "description": "Reference conditions for the preset with no extra operational pressure.",
+          "id": "baseline",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 320.0,
+              "failure_prevention_rate": 0.0,
+              "id": "speed_up__n04",
+              "label": "Reduce service time at n04",
+              "resilience_gain": 0.0936322260433833,
+              "target": "n04"
+            },
+            "best_shock_vector": {
+              "capacity__n04": 0.0,
+              "demand__n00": 1.0,
+              "edge_cap__n04__n06": 0.0
+            },
+            "bottlenecks": [
+              "n07",
+              "n01",
+              "n05"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.541,
+              "utilization": 0.351
+            },
+            "critical_edges": [
+              "n05->n07",
+              "n07->n01",
+              "n07->n05"
+            ],
+            "damage_score": 1.127,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.00x, coupling 1.00x, slack 1.00x, and shock intensity 1.00x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.401. The strongest intervention signal is Reduce service time at n04, focused on n04 with an estimated resilience gain of 0.094.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.401,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/synthetic_generic__baseline.png"
+            },
+            "metrics": {
+              "mean_wait": 2.353,
+              "resilience_score": 0.033,
+              "throughput": 0.0,
+              "utilization": 0.351
+            },
+            "narrative_summary": "The dominant bottleneck was 'n07', with the largest backlog integral and wait burden in the run. The most stressed route was 'n05->n07', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Baseline"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.0,
+            "slack": 1.0,
+            "utilization": 1.1
+          },
+          "description": "Higher arrivals push the preset toward the shared transition band.",
+          "id": "utilization_push",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 320.0,
+              "failure_prevention_rate": 0.0,
+              "id": "speed_up__n04",
+              "label": "Reduce service time at n04",
+              "resilience_gain": 2.1411109205907164e-05,
+              "target": "n04"
+            },
+            "best_shock_vector": {
+              "capacity__n04": 0.0,
+              "demand__n00": 1.0,
+              "edge_cap__n04__n06": 0.0
+            },
+            "bottlenecks": [
+              "n07",
+              "n05",
+              "n01"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.589,
+              "utilization": 0.303
+            },
+            "critical_edges": [
+              "n07->n05",
+              "n06->n07",
+              "n05->n07"
+            ],
+            "damage_score": 0.857,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.10x, coupling 1.00x, slack 1.00x, and shock intensity 1.00x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.351. The strongest intervention signal is Reduce service time at n04, focused on n04 with an estimated resilience gain of 0.000.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.351,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/synthetic_generic__utilization_push.png"
+            },
+            "metrics": {
+              "mean_wait": 1.8,
+              "resilience_score": 0.095,
+              "throughput": 0.0,
+              "utilization": 0.303
+            },
+            "narrative_summary": "The dominant bottleneck was 'n07', with the largest backlog integral and wait burden in the run. The most stressed route was 'n07->n05', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Utilization push"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.05,
+            "slack": 0.95,
+            "utilization": 1.15
+          },
+          "description": "A utilization-led regime where collapse risk starts to accelerate.",
+          "id": "transition_band",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 210.0,
+              "failure_prevention_rate": 0.0,
+              "id": "reroute__n06__n07",
+              "label": "Reroute around n06->n07",
+              "resilience_gain": 0.03125,
+              "target": "n06->n07"
+            },
+            "best_shock_vector": {
+              "capacity__n04": 0.0,
+              "demand__n00": 1.0,
+              "edge_cap__n04__n06": 0.0
+            },
+            "bottlenecks": [
+              "n07",
+              "n00",
+              "n06"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.647,
+              "utilization": 0.304
+            },
+            "critical_edges": [
+              "n05->n07",
+              "n07->n01",
+              "n06->n07"
+            ],
+            "damage_score": 0.86,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.15x, coupling 1.00x, slack 0.95x, and shock intensity 1.05x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.311. The strongest intervention signal is Reroute around n06->n07, focused on n06->n07 with an estimated resilience gain of 0.031.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.311,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/synthetic_generic__transition_band.png"
+            },
+            "metrics": {
+              "mean_wait": 1.49,
+              "resilience_score": 0.064,
+              "throughput": 0.0,
+              "utilization": 0.304
+            },
+            "narrative_summary": "The dominant bottleneck was 'n07', with the largest backlog integral and wait burden in the run. The most stressed route was 'n05->n07', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Transition band"
+        },
+        {
+          "controls": {
+            "coupling": 1.15,
+            "shock_intensity": 1.0,
+            "slack": 1.0,
+            "utilization": 1.0
+          },
+          "description": "Same basic load, but tighter coupling concentrates flow and narrows shock margin.",
+          "id": "coupling_push",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 250.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_staff__n04",
+              "label": "Add capacity at n04",
+              "resilience_gain": 0.0,
+              "target": "n04"
+            },
+            "best_shock_vector": {
+              "capacity__n04": 0.0,
+              "demand__n00": 1.0,
+              "edge_cap__n04__n06": 0.0
+            },
+            "bottlenecks": [
+              "n05",
+              "n01",
+              "n07"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.579,
+              "utilization": 0.28
+            },
+            "critical_edges": [
+              "n07->n01",
+              "n07->n05",
+              "n05->n07"
+            ],
+            "damage_score": 0.844,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.00x, coupling 1.15x, slack 1.00x, and shock intensity 1.00x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.366. The strongest intervention signal is Add capacity at n04, focused on n04 with an estimated resilience gain of 0.000.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.366,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/synthetic_generic__coupling_push.png"
+            },
+            "metrics": {
+              "mean_wait": 1.717,
+              "resilience_score": 0.095,
+              "throughput": 0.0,
+              "utilization": 0.28
+            },
+            "narrative_summary": "The dominant bottleneck was 'n05', with the largest backlog integral and wait burden in the run. The most stressed route was 'n07->n01', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Coupling push"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.0,
+            "slack": 0.85,
+            "utilization": 1.0
+          },
+          "description": "Buffers shrink while other pressures remain near baseline.",
+          "id": "slack_drop",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 320.0,
+              "failure_prevention_rate": 0.0,
+              "id": "speed_up__n04",
+              "label": "Reduce service time at n04",
+              "resilience_gain": 0.0936322260433833,
+              "target": "n04"
+            },
+            "best_shock_vector": {
+              "capacity__n04": 0.0,
+              "demand__n00": 1.0,
+              "edge_cap__n04__n06": 0.0
+            },
+            "bottlenecks": [
+              "n07",
+              "n01",
+              "n05"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.576,
+              "utilization": 0.351
+            },
+            "critical_edges": [
+              "n05->n07",
+              "n07->n01",
+              "n07->n05"
+            ],
+            "damage_score": 1.127,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.00x, coupling 1.00x, slack 0.85x, and shock intensity 1.00x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.377. The strongest intervention signal is Reduce service time at n04, focused on n04 with an estimated resilience gain of 0.094.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.377,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/synthetic_generic__slack_drop.png"
+            },
+            "metrics": {
+              "mean_wait": 2.353,
+              "resilience_score": 0.033,
+              "throughput": 0.0,
+              "utilization": 0.351
+            },
+            "narrative_summary": "The dominant bottleneck was 'n07', with the largest backlog integral and wait burden in the run. The most stressed route was 'n05->n07', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Slack erosion"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.15,
+            "slack": 1.0,
+            "utilization": 1.0
+          },
+          "description": "A stronger shock probes how much failure margin the preset still retains.",
+          "id": "shock_push",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 320.0,
+              "failure_prevention_rate": 0.0,
+              "id": "speed_up__n04",
+              "label": "Reduce service time at n04",
+              "resilience_gain": 0.0936322260433833,
+              "target": "n04"
+            },
+            "best_shock_vector": {
+              "capacity__n04": 0.0,
+              "demand__n00": 1.0,
+              "edge_cap__n04__n06": 0.0
+            },
+            "bottlenecks": [
+              "n07",
+              "n01",
+              "n05"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "Moderate",
+              "score": 0.576,
+              "utilization": 0.351
+            },
+            "critical_edges": [
+              "n05->n07",
+              "n07->n01",
+              "n07->n05"
+            ],
+            "damage_score": 1.127,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.00x, coupling 1.00x, slack 1.00x, and shock intensity 1.15x. That places the preset in a moderate-risk regime with an estimated failure margin of 0.380. The strongest intervention signal is Reduce service time at n04, focused on n04 with an estimated resilience gain of 0.094.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.38,
+              "label": "Moderate",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/synthetic_generic__shock_push.png"
+            },
+            "metrics": {
+              "mean_wait": 2.353,
+              "resilience_score": 0.033,
+              "throughput": 0.0,
+              "utilization": 0.351
+            },
+            "narrative_summary": "The dominant bottleneck was 'n07', with the largest backlog integral and wait burden in the run. The most stressed route was 'n05->n07', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Shock push"
+        },
+        {
+          "controls": {
+            "coupling": 1.15,
+            "shock_intensity": 1.05,
+            "slack": 1.0,
+            "utilization": 1.15
+          },
+          "description": "Higher utilization plus tighter coupling make the transition sharper.",
+          "id": "coupled_transition",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 250.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_staff__n04",
+              "label": "Add capacity at n04",
+              "resilience_gain": 0.0,
+              "target": "n04"
+            },
+            "best_shock_vector": {
+              "capacity__n04": 0.0,
+              "demand__n00": 1.0,
+              "edge_cap__n04__n06": 0.0
+            },
+            "bottlenecks": [
+              "n07",
+              "n01",
+              "n05"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "High",
+              "score": 0.678,
+              "utilization": 0.308
+            },
+            "critical_edges": [
+              "n06->n07",
+              "n07->n05",
+              "n05->n07"
+            ],
+            "damage_score": 1.028,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.15x, coupling 1.15x, slack 1.00x, and shock intensity 1.05x. That places the preset in a high-risk regime with an estimated failure margin of 0.284. The strongest intervention signal is Add capacity at n04, focused on n04 with an estimated resilience gain of 0.000.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.284,
+              "label": "Thin",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/synthetic_generic__coupled_transition.png"
+            },
+            "metrics": {
+              "mean_wait": 2.698,
+              "resilience_score": 0.095,
+              "throughput": 0.0,
+              "utilization": 0.308
+            },
+            "narrative_summary": "The dominant bottleneck was 'n07', with the largest backlog integral and wait burden in the run. The most stressed route was 'n06->n07', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Coupled transition"
+        },
+        {
+          "controls": {
+            "coupling": 1.0,
+            "shock_intensity": 1.05,
+            "slack": 0.85,
+            "utilization": 1.15
+          },
+          "description": "Higher utilization and lower slack squeeze the system into a thinner safe band.",
+          "id": "slack_crunch",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 210.0,
+              "failure_prevention_rate": 0.0,
+              "id": "reroute__n06__n07",
+              "label": "Reroute around n06->n07",
+              "resilience_gain": 0.03125,
+              "target": "n06->n07"
+            },
+            "best_shock_vector": {
+              "capacity__n04": 0.0,
+              "demand__n00": 1.0,
+              "edge_cap__n04__n06": 0.0
+            },
+            "bottlenecks": [
+              "n07",
+              "n00",
+              "n06"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "High",
+              "score": 0.67,
+              "utilization": 0.304
+            },
+            "critical_edges": [
+              "n05->n07",
+              "n07->n01",
+              "n06->n07"
+            ],
+            "damage_score": 0.86,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.15x, coupling 1.00x, slack 0.85x, and shock intensity 1.05x. That places the preset in a high-risk regime with an estimated failure margin of 0.295. The strongest intervention signal is Reroute around n06->n07, focused on n06->n07 with an estimated resilience gain of 0.031.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.295,
+              "label": "Thin",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/synthetic_generic__slack_crunch.png"
+            },
+            "metrics": {
+              "mean_wait": 1.49,
+              "resilience_score": 0.064,
+              "throughput": 0.0,
+              "utilization": 0.304
+            },
+            "narrative_summary": "The dominant bottleneck was 'n07', with the largest backlog integral and wait burden in the run. The most stressed route was 'n05->n07', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Slack crunch"
+        },
+        {
+          "controls": {
+            "coupling": 1.1,
+            "shock_intensity": 1.15,
+            "slack": 0.9,
+            "utilization": 1.1
+          },
+          "description": "Coupling and slack deterioration combine to create a brittle operating point.",
+          "id": "network_lock",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 250.0,
+              "failure_prevention_rate": 0.0,
+              "id": "add_staff__n04",
+              "label": "Add capacity at n04",
+              "resilience_gain": 0.0,
+              "target": "n04"
+            },
+            "best_shock_vector": {
+              "capacity__n04": 0.0,
+              "demand__n00": 1.0,
+              "edge_cap__n04__n06": 0.0
+            },
+            "bottlenecks": [
+              "n07",
+              "n00",
+              "n01"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "High",
+              "score": 0.679,
+              "utilization": 0.286
+            },
+            "critical_edges": [
+              "n05->n07",
+              "n07->n05",
+              "n06->n07"
+            ],
+            "damage_score": 0.992,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.10x, coupling 1.10x, slack 0.90x, and shock intensity 1.15x. That places the preset in a high-risk regime with an estimated failure margin of 0.290. The strongest intervention signal is Add capacity at n04, focused on n04 with an estimated resilience gain of 0.000.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.29,
+              "label": "Thin",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/synthetic_generic__network_lock.png"
+            },
+            "metrics": {
+              "mean_wait": 2.635,
+              "resilience_score": 0.095,
+              "throughput": 0.0,
+              "utilization": 0.286
+            },
+            "narrative_summary": "The dominant bottleneck was 'n07', with the largest backlog integral and wait burden in the run. The most stressed route was 'n05->n07', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Network lock"
+        },
+        {
+          "controls": {
+            "coupling": 1.15,
+            "shock_intensity": 1.2,
+            "slack": 0.8,
+            "utilization": 1.25
+          },
+          "description": "High utilization, high coupling, low slack, and elevated shock intensity push the preset past the cliff.",
+          "id": "collapse_combo",
+          "result": {
+            "baseline_failure": true,
+            "best_intervention": {
+              "cost": 320.0,
+              "failure_prevention_rate": 0.0,
+              "id": "speed_up__n04",
+              "label": "Reduce service time at n04",
+              "resilience_gain": 0.06265805380472042,
+              "target": "n04"
+            },
+            "best_shock_vector": {
+              "capacity__n04": 0.0,
+              "demand__n00": 1.0,
+              "edge_cap__n04__n06": 0.0
+            },
+            "bottlenecks": [
+              "n07",
+              "n01",
+              "n05"
+            ],
+            "collapse_risk": {
+              "basis": "Static Pages estimate backed by the nearest precomputed StressLab scenario.",
+              "label": "High",
+              "score": 0.823,
+              "utilization": 0.344
+            },
+            "critical_edges": [
+              "n07->n01",
+              "n05->n07",
+              "n07->n05"
+            ],
+            "damage_score": 0.908,
+            "explanation": "This Pages demo snaps to a precomputed scenario at utilization 1.25x, coupling 1.15x, slack 0.80x, and shock intensity 1.20x. That places the preset in a high-risk regime with an estimated failure margin of 0.180. The strongest intervention signal is Reduce service time at n04, focused on n04 with an estimated resilience gain of 0.063.",
+            "failure_margin": {
+              "basis": "Research-backed display margin derived from controls and nearest-scenario search output.",
+              "best_shock_budget": 0.18,
+              "label": "Thin",
+              "raw_search_budget": 0.0
+            },
+            "figure": {
+              "caption": "Queue response under the current preset and control settings.",
+              "path": "assets/static_demo/figures/synthetic_generic__collapse_combo.png"
+            },
+            "metrics": {
+              "mean_wait": 1.276,
+              "resilience_score": 0.064,
+              "throughput": 0.0,
+              "utilization": 0.344
+            },
+            "narrative_summary": "The dominant bottleneck was 'n07', with the largest backlog integral and wait burden in the run. The most stressed route was 'n07->n01', which accumulated the most blocking or transfer delay.",
+            "scenario_failure": true
+          },
+          "title": "Collapse combo"
+        }
+      ],
+      "story": "Best for showing the core collapse mechanics without domain-specific jargon."
+    }
+  ],
+  "summary": "This GitHub Pages demo uses a curated library of precomputed StressLab runs. Slider settings snap to the nearest real scenario so the experience stays free, fast, and honest."
+}

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StressLab | How It Works</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <nav class="nav">
+      <div class="brand">StressLab</div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="demo.html">Demo</a>
+        <a href="main-finding.html">Main Finding</a>
+        <a href="figures.html">Figures</a>
+        <a href="healthcare-case-study.html">Healthcare Case Study</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="reproduce.html">Reproduce</a>
+      </div>
+    </nav>
+
+    <section class="section">
+      <div class="eyebrow">Engine overview</div>
+      <h1>How StressLab works without overwhelming detail.</h1>
+      <p class="lede">
+        StressLab combines deterministic simulation, adversarial search, theory extraction, and reporting into one workflow. The studies on this site were produced by running that pipeline repeatedly across large synthetic system families and then validating the strongest claim with a controlled follow-up.
+      </p>
+    </section>
+
+    <section class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>Model or generate systems</h3>
+        <p>StressLab can load authored YAML systems or generate large synthetic families such as random queue, scale-free, small-world, supply-network, and market-style graphs.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>Run deterministic stress campaigns</h3>
+        <p>Each system is simulated under baseline conditions, minimum-shock failure search, and worst-case stress search so collapse metrics can be compared systematically.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>Extract theory features</h3>
+        <p>StressLab computes structural features, collapse metrics, early-warning signals, candidate laws, and phase-transition summaries across the resulting dataset.</p>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <h3>Package the results</h3>
+        <p>Research reports, curated figures, case studies, and public-facing narrative assets are built automatically so the same engine supports both science and communication.</p>
+      </div>
+    </section>
+
+    <section class="section section-grid">
+      <div class="text-panel">
+        <h2>Why deterministic simulation matters</h2>
+        <p>
+          The point is not just to produce pretty plots. StressLab emphasizes deterministic, artifact-rich runs so results can be replayed, compared, and explained.
+          That is why it works as both a research tool and a decision-support platform.
+        </p>
+      </div>
+      <div class="text-panel">
+        <h2>Why this project is unusual</h2>
+        <p>
+          Many simulation tools stop at scenario playback. StressLab treats scenario generation, search, theory analysis, and narrative packaging as one continuous workflow.
+          That is what made the flagship studies possible.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="button-row">
+        <a class="button" href="main-finding.html">See the result</a>
+        <a class="button secondary" href="reproduce.html">Reproduce the studies</a>
+      </div>
+    </section>
+
+    <div class="footer">
+      Core repo docs remain in the repository for deeper technical detail. This page is the short version.
+    </div>
+  </div>
+</body>
+</html>

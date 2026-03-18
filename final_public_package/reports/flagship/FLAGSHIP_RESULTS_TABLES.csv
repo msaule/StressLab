@@ -1,0 +1,55 @@
+section,topology_type,metric,value,notes
+sample_counts,hierarchical_supply,system_count,1000,
+sample_counts,market_microstructure,system_count,1000,
+sample_counts,random_queue,system_count,1000,
+sample_counts,scale_free,system_count,1000,
+sample_counts,small_world,system_count,1000,
+collapse_rates,market_microstructure,collapse_probability,0.768,
+collapse_rates,hierarchical_supply,collapse_probability,0.5583333333333332,
+collapse_rates,small_world,collapse_probability,0.378,
+collapse_rates,scale_free,collapse_probability,0.247,
+collapse_rates,random_queue,collapse_probability,0.137,
+collapse_rates,market_microstructure,min_failure_triggered,0.968,
+collapse_rates,hierarchical_supply,min_failure_triggered,0.852,
+collapse_rates,small_world,min_failure_triggered,0.564,
+collapse_rates,scale_free,min_failure_triggered,0.423,
+collapse_rates,random_queue,min_failure_triggered,0.267,
+collapse_rates,market_microstructure,worst_case_triggered,0.823,
+collapse_rates,hierarchical_supply,worst_case_triggered,0.65,
+collapse_rates,small_world,worst_case_triggered,0.444,
+collapse_rates,scale_free,worst_case_triggered,0.295,
+collapse_rates,random_queue,worst_case_triggered,0.14,
+thresholds,scale_free,critical_utilization,0.06182668683996517,transition=0.079-0.181
+thresholds,random_queue,critical_utilization,0.09681778710645442,transition=0.104-0.140
+thresholds,hierarchical_supply,critical_utilization,0.1521080299935587,transition=0.107-0.250
+thresholds,small_world,critical_utilization,0.18642351667459195,transition=0.103-0.205
+thresholds,market_microstructure,critical_utilization,0.20211702581922594,transition=0.139-0.208
+thresholds,all,shared_transition_band_low,0.09681778710645442,
+thresholds,all,shared_transition_band_high,0.18642351667459195,
+thresholds,all,shared_transition_band_median,0.1521080299935587,
+heavy_tail,market_microstructure,best_tail_model,lognormal,alpha=1.473; gap=467.406
+heavy_tail,hierarchical_supply,best_tail_model,lognormal,alpha=1.511; gap=434.811
+heavy_tail,random_queue,best_tail_model,lognormal,alpha=1.784; gap=294.729
+heavy_tail,small_world,best_tail_model,lognormal,alpha=1.610; gap=214.330
+heavy_tail,scale_free,best_tail_model,lognormal,alpha=1.840; gap=129.071
+early_warning,all,variance_increase,388215.3624540004,collapse=4535714.467; stable=4147499.105
+early_warning,all,recovery_lag,0.4765842667851241,collapse=3.388; stable=2.911
+early_warning,all,autocorrelation_increase,-0.007369221299725209,collapse=-0.026; stable=-0.018
+feature_importance,all,capacity_slack,0.7956387642365201,correlation=-0.796
+feature_importance,all,baseline_utilization,0.7956387642365199,correlation=0.796
+feature_importance,all,routing_entropy,0.470095443466812,correlation=0.470
+feature_importance,all,average_degree,0.2635922887556575,correlation=-0.264
+feature_importance,all,edge_count,0.2411979901298805,correlation=-0.241
+feature_importance,all,clustering_coefficient,0.2196088038077407,correlation=-0.220
+feature_importance,all,buffer_ratio,0.1642164492648764,correlation=0.164
+feature_importance,all,max_eigenvector,0.1502273659595762,correlation=0.150
+laws,all,fragility,0.6473968760258529,collapse_probability = -0.1795 + 3.9192 * utilization + 0.2942 * centralization_index
+laws,all,fragility,0.6473968760258529,collapse_probability = 3.7397 + -3.9192 * capacity_slack + 0.2942 * centralization_index
+laws,all,fragility,0.6373169704155763,collapse_probability = -0.1517 + 3.9524 * utilization + 0.5436 * redundancy_index
+laws,all,fragility,0.6373169704155763,collapse_probability = 3.8007 + -3.9524 * capacity_slack + 0.5436 * redundancy_index
+laws,all,fragility,0.6361362926736568,collapse_probability = 0.0290 + 3.8719 * utilization + -0.3462 * coupling_strength
+laws,all,fragility,0.6361362926736568,collapse_probability = 3.9009 + -3.8719 * capacity_slack + -0.3462 * coupling_strength
+laws,all,fragility,0.6333733566019424,collapse_probability = -0.1248 + 4.4593 * log1p(utilization)
+laws,all,fragility,0.6330777332676719,collapse_probability = -0.1070 + 3.8798 * utilization + 0.0165 * routing_entropy
+laws,all,fragility,0.6330777332676719,collapse_probability = 3.7729 + -3.8798 * capacity_slack + 0.0165 * routing_entropy
+laws,all,fragility,0.6330410431558149,collapse_probability = 1.2361 + 2.5686 * utilization + -1.3326 * capacity_slack

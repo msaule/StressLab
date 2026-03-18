@@ -1,0 +1,31 @@
+section,group,metric,value,notes
+counts,synthetic,system_count,2700.0,
+counts,healthcare,system_count,144.0,
+synthetic_thresholds,hierarchical_supply,high,0.30033484022849627,slope=0.702
+synthetic_thresholds,hierarchical_supply,low,0.2985184567279856,slope=1.145
+synthetic_thresholds,hierarchical_supply,medium,0.29978540731483233,slope=0.652
+synthetic_thresholds,market_microstructure,high,0.22478495714578586,slope=3.711
+synthetic_thresholds,market_microstructure,low,0.21824104628884428,slope=2.773
+synthetic_thresholds,market_microstructure,medium,0.22429968744925868,slope=3.345
+synthetic_thresholds,random_queue,high,0.31207683987703955,slope=8.163
+synthetic_thresholds,random_queue,low,0.28917684156439305,slope=8.321
+synthetic_thresholds,random_queue,medium,0.2839076321324814,slope=11.552
+synthetic_thresholds,scale_free,high,0.22235194041936757,slope=3.969
+synthetic_thresholds,scale_free,low,0.2231294526306244,slope=4.762
+synthetic_thresholds,scale_free,medium,0.22585876877467587,slope=3.619
+synthetic_thresholds,small_world,high,0.25447671151381285,slope=8.818
+synthetic_thresholds,small_world,low,0.2458264764835953,slope=11.231
+synthetic_thresholds,small_world,medium,0.25193729795349235,slope=10.977
+healthcare_thresholds,healthcare_referral,high,0.9750000000000001,slope=3.333
+healthcare_thresholds,healthcare_referral,low,0.9750000000000001,slope=3.333
+healthcare_thresholds,healthcare_referral,medium,0.9750000000000001,slope=3.889
+threshold_shift,scale_free,high_minus_low,-0.0007775122112568256,
+threshold_shift,hierarchical_supply,high_minus_low,0.0018163835005106654,
+threshold_shift,market_microstructure,high_minus_low,0.006543910856941587,
+threshold_shift,small_world,high_minus_low,0.008650235030217557,
+threshold_shift,random_queue,high_minus_low,0.022899998312646497,
+shock_margin_shift,hierarchical_supply,high_vs_low_pct,-0.9216380182002027,low=0.000; high=0.000
+shock_margin_shift,market_microstructure,high_vs_low_pct,-0.5107854743383518,low=0.000; high=0.000
+shock_margin_shift,scale_free,high_vs_low_pct,-0.27935906444337383,low=0.056; high=0.040
+shock_margin_shift,random_queue,high_vs_low_pct,-0.26020950678124866,low=0.637; high=0.446
+shock_margin_shift,small_world,high_vs_low_pct,0.011981862998650764,low=0.238; high=0.213

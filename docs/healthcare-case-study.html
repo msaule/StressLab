@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StressLab | Healthcare Case Study</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <nav class="nav">
+      <div class="brand">StressLab</div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="demo.html">Demo</a>
+        <a href="main-finding.html">Main Finding</a>
+        <a href="figures.html">Figures</a>
+        <a href="healthcare-case-study.html">Healthcare Case Study</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="reproduce.html">Reproduce</a>
+      </div>
+    </nav>
+
+    <section class="section">
+      <div class="eyebrow">Concrete story</div>
+      <h1>Healthcare overload makes the abstract result intuitive.</h1>
+      <p class="lede">
+        The broad synthetic studies provide the science. The healthcare ED case provides the story: queues build, flow locks up, bottlenecks emerge, and intervention quality depends on how close the system already is to the utilization cliff.
+      </p>
+    </section>
+
+    <section class="section section-grid">
+      <div class="text-panel">
+        <h2>What the case shows</h2>
+        <ul>
+          <li>Baseline behavior remains serviceable under normal load.</li>
+          <li>Worst-case stress pushes the system into visible overload and queue growth.</li>
+          <li>Optimization identifies interventions that restore throughput and reduce bottleneck pressure.</li>
+          <li>The follow-up family shows collapse turning on around a 0.98x arrival multiplier and saturating by about 1.20x.</li>
+        </ul>
+      </div>
+      <div class="text-panel">
+        <h2>Why this matters</h2>
+        <p>
+          The healthcare case is useful because it translates the abstract "utilization-led collapse" result into something operational teams already understand:
+          once effective arrival pressure gets too close to service capacity, the system stops being forgiving.
+        </p>
+      </div>
+    </section>
+
+    <section class="section feature-figure">
+      <img src="assets/public/healthcare_case.png" alt="Healthcare case figure">
+    </section>
+
+    <section class="section figure-grid">
+      <div class="figure-card">
+        <img src="assets/public/healthcare_validation.png" alt="Healthcare validation">
+        <div class="copy">
+          <h3>Threshold validation</h3>
+          <p>The same cliff shape appears in the healthcare family when arrival intensity is swept systematically.</p>
+        </div>
+      </div>
+      <div class="figure-card">
+        <img src="assets/public/failure_margin.png" alt="Failure margin">
+        <div class="copy">
+          <h3>Operational interpretation</h3>
+          <p>Even when coupling does not move the cliff much, it reduces how much extra stress the system can absorb before failing.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-grid">
+      <div class="text-panel">
+        <h2>Demo storyline</h2>
+        <p>
+          Start with the synthetic main result. Then switch to this case and show the baseline, stressed, and optimized trajectories. That sequence makes the project legible both as research and as decision support.
+        </p>
+      </div>
+      <div class="text-panel">
+        <h2>Reports</h2>
+        <p><a href="studies/flagship/FLAGSHIP_RESEARCH_REPORT.html">Flagship report</a></p>
+        <p><a href="studies/followup/FOLLOWUP_RESEARCH_REPORT.html">Follow-up report</a></p>
+      </div>
+    </section>
+
+    <div class="footer">
+      StressLab's healthcare case study is an intuitive illustration, not the source of the cross-domain claim by itself.
+    </div>
+  </div>
+</body>
+</html>

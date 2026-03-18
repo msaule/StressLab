@@ -1,0 +1,25 @@
+{
+  "workspace": "runs\\flagship_universal_collapse_workspace\\2026-03-17_190901_538199_flagship_universal_collapse_study_batch",
+  "theory_dir": "runs\\flagship_universal_collapse_theory\\2026-03-17_194529_983395_theory_theory",
+  "research_dir": "runs\\flagship_universal_collapse_research\\2026-03-17_194839_777454_research_research",
+  "case_dir": "runs\\flagship_healthcare_case_workspace\\2026-03-17_194529_994433_flagship_healthcare_case_study_batch",
+  "system_count": 5000,
+  "topology_count": 5,
+  "headline_result": "Across 5,000 systems and 5 topology families, StressLab found that collapse risk accelerates sharply once baseline utilization enters a shared transition band around 0.10-0.19, with shared variance and recovery-lag warning signals appearing before failure across domains.",
+  "shared_threshold_band": {
+    "median_threshold": 0.1521080299935587,
+    "band_low": 0.09681778710645442,
+    "band_high": 0.18642351667459195,
+    "spread": 0.14029033897926077
+  },
+  "figures": [
+    "collapse_probability_vs_utilization_overlay.png",
+    "fragility_heatmap_utilization_coupling.png",
+    "cascade_distribution_by_topology.png",
+    "phase_transition_by_topology.png",
+    "early_warning_signal_trends.png",
+    "feature_importance_and_laws.png",
+    "healthcare_case_baseline_vs_collapse_vs_intervention.png",
+    "flagship_main_result.png"
+  ]
+}

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StressLab | Static Demo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <nav class="nav">
+      <div class="brand">StressLab</div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="demo.html">Demo</a>
+        <a href="main-finding.html">Main Finding</a>
+        <a href="figures.html">Figures</a>
+        <a href="healthcare-case-study.html">Healthcare Case Study</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="reproduce.html">Reproduce</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Free single-host static demo</div>
+        <h1>Explore StressLab without a backend.</h1>
+        <p class="lede">
+          This version runs entirely on precomputed StressLab scenarios, so it can live on GitHub Pages for free.
+          The controls below snap to the nearest real scenario in a curated library instead of starting a live Python run.
+        </p>
+        <div id="demo-claim" class="claim">
+          Across domains, collapse thresholds are primarily utilization-led; coupling mainly narrows the failure margin rather than moving the threshold much.
+        </div>
+        <div class="button-row">
+          <a class="button" href="main-finding.html">Read the result</a>
+          <a class="button secondary" href="reproduce.html">Reproduce the studies</a>
+        </div>
+      </div>
+      <div>
+        <img src="assets/public/main_result.png" alt="StressLab main result figure">
+      </div>
+    </section>
+
+    <section class="stats" id="demo-stats"></section>
+
+    <section class="section demo-layout">
+      <div class="demo-panel">
+        <h2>Preset</h2>
+        <p class="note">Choose a domain story, then adjust the same knobs used in the live demo.</p>
+        <div id="preset-list" class="preset-list"></div>
+
+        <h2 style="margin-top:20px;">Controls</h2>
+        <p class="note">The result snaps to the nearest precomputed scenario in the library.</p>
+        <div id="control-list"></div>
+        <div class="button-row">
+          <button class="button" id="match-scenario" type="button">Match scenario</button>
+          <button class="button secondary" id="reset-controls" type="button">Reset</button>
+        </div>
+        <div id="match-note" class="demo-match-note"></div>
+      </div>
+
+      <div class="demo-panel">
+        <div class="demo-result-header">
+          <div>
+            <h2>Scenario result</h2>
+            <p class="note">A research-backed preview of collapse risk, failure margin, bottlenecks, and intervention leverage.</p>
+          </div>
+          <div id="scenario-chip" class="demo-chip"></div>
+        </div>
+
+        <div id="result-cards" class="stats demo-result-cards"></div>
+
+        <div class="demo-result-grid">
+          <div class="figure-card">
+            <img id="result-figure" src="assets/public/main_result.png" alt="Scenario figure">
+            <div class="copy">
+              <h3 id="figure-title">Representative figure</h3>
+              <p id="figure-caption" class="kicker"></p>
+            </div>
+          </div>
+
+          <div class="text-panel">
+            <h3>Interpretation</h3>
+            <p id="result-explanation"></p>
+
+            <h3 style="margin-top:18px;">Top bottlenecks</h3>
+            <ul id="bottleneck-list"></ul>
+
+            <h3 style="margin-top:18px;">Critical edges</h3>
+            <ul id="edge-list"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-grid">
+      <div class="text-panel">
+        <h2>Why this works on GitHub Pages</h2>
+        <p>
+          The static demo packages a small library of real StressLab runs for each preset and uses nearest-scenario matching in the browser.
+          That keeps the experience free, fast, and reproducible while staying grounded in actual search and optimization outputs.
+        </p>
+        <p>
+          If you want the fully live version later, the same presets can still be served through the Python API. This page is the zero-cost publishing path.
+        </p>
+      </div>
+      <div class="text-panel">
+        <h2>What to look for</h2>
+        <ul>
+          <li>Push utilization upward and watch collapse risk accelerate faster than the other knobs move it.</li>
+          <li>Increase coupling and note that the failure margin usually shrinks faster than the threshold moves.</li>
+          <li>Reduce slack to make the same utilization level feel more brittle.</li>
+          <li>Use the healthcare preset for the clearest story and the market preset for the sharpest “margin disappears first” pattern.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section figure-grid">
+      <div class="figure-card">
+        <img src="assets/public/failure_margin.png" alt="Failure margin follow-up result">
+        <div class="copy">
+          <h3>Coupling compresses margin</h3>
+          <p class="kicker">The controlled follow-up found that coupling mostly narrows shock margin rather than relocating the threshold much.</p>
+        </div>
+      </div>
+      <div class="figure-card">
+        <img src="assets/public/healthcare_case.png" alt="Healthcare case study">
+        <div class="copy">
+          <h3>Concrete case study</h3>
+          <p class="kicker">The healthcare preset connects the abstract result to an intuitive overload and intervention story.</p>
+        </div>
+      </div>
+      <div class="figure-card">
+        <img src="assets/public/collapse_overlay.png" alt="Cross-domain collapse overlay">
+        <div class="copy">
+          <h3>Cross-domain context</h3>
+          <p class="kicker">The static demo is anchored to the same cross-domain finding shown in the flagship studies.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      Static demo mode uses a curated library of precomputed StressLab runs so the site can be hosted entirely on GitHub Pages.
+    </div>
+  </div>
+
+  <script src="demo.js"></script>
+</body>
+</html>

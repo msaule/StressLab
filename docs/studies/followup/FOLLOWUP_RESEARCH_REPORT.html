@@ -1,0 +1,165 @@
+<html><head><meta charset='utf-8' /><title>Follow-up Controlled Threshold Study</title></head>
+<body style='font-family:Georgia,serif; max-width:1040px; margin:32px auto; line-height:1.6;'>
+<h1>Follow-up Controlled Threshold Study</h1>
+<p><strong>In the controlled follow-up sweep over 2,700 fixed-size synthetic systems plus 144 healthcare variants, StressLab found that the collapse threshold stays primarily utilization-led, while higher coupling shifts it only modestly on average (0.008 utilization points) but reduces the shock margin to failure by about 39.2%.</strong></p>
+<ul><li>In the controlled synthetic study, the utilization threshold remains the main driver of collapse, with a median controlled threshold near 0.252.</li>
+<li>Changing coupling shifts the threshold, but only modestly on average: the mean high-minus-low coupling shift is 0.008 utilization points, with the largest absolute shift at 0.023.</li>
+<li>Higher coupling still matters operationally because it shrinks the minimum shock-to-failure margin by about 39.2% on average across the controlled synthetic grid.</li>
+<li>That follow-up result weakens any claim that raw coupling alone sets the universal threshold; coupling acts more like a modifier on a utilization-led transition and a reducer of failure margin.</li>
+<li>The healthcare validation family shows the same qualitative shape in operational terms: collapse turns on around a 0.98x arrival multiplier and is essentially saturated by 1.20x, which supports the portability of the utilization-threshold result beyond purely synthetic systems.</li></ul>
+<h2>Counts</h2>
+<p>Synthetic controlled systems: <code>2,700</code><br />Healthcare variants: <code>144</code></p>
+<h2>Threshold shift table</h2>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>topology_type</th>
+      <th>topology_label</th>
+      <th>low_threshold</th>
+      <th>medium_threshold</th>
+      <th>high_threshold</th>
+      <th>threshold_shift</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>scale_free</td>
+      <td>Scale-Free</td>
+      <td>0.223129</td>
+      <td>0.225859</td>
+      <td>0.222352</td>
+      <td>-0.000778</td>
+    </tr>
+    <tr>
+      <td>hierarchical_supply</td>
+      <td>Hierarchical Supply</td>
+      <td>0.298518</td>
+      <td>0.299785</td>
+      <td>0.300335</td>
+      <td>0.001816</td>
+    </tr>
+    <tr>
+      <td>market_microstructure</td>
+      <td>Market Microstructure</td>
+      <td>0.218241</td>
+      <td>0.224300</td>
+      <td>0.224785</td>
+      <td>0.006544</td>
+    </tr>
+    <tr>
+      <td>small_world</td>
+      <td>Small-World</td>
+      <td>0.245826</td>
+      <td>0.251937</td>
+      <td>0.254477</td>
+      <td>0.008650</td>
+    </tr>
+    <tr>
+      <td>random_queue</td>
+      <td>Random Queue</td>
+      <td>0.289177</td>
+      <td>0.283908</td>
+      <td>0.312077</td>
+      <td>0.022900</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Failure shock margin shift</h2>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>topology_type</th>
+      <th>topology_label</th>
+      <th>mean_pct_change_high_vs_low</th>
+      <th>median_low_budget</th>
+      <th>median_high_budget</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hierarchical_supply</td>
+      <td>Hierarchical Supply</td>
+      <td>-0.921638</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <td>market_microstructure</td>
+      <td>Market Microstructure</td>
+      <td>-0.510785</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <td>scale_free</td>
+      <td>Scale-Free</td>
+      <td>-0.279359</td>
+      <td>0.055910</td>
+      <td>0.040342</td>
+    </tr>
+    <tr>
+      <td>random_queue</td>
+      <td>Random Queue</td>
+      <td>-0.260210</td>
+      <td>0.636697</td>
+      <td>0.445645</td>
+    </tr>
+    <tr>
+      <td>small_world</td>
+      <td>Small-World</td>
+      <td>0.011982</td>
+      <td>0.237774</td>
+      <td>0.212637</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Healthcare threshold table</h2>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>topology_type</th>
+      <th>topology_label</th>
+      <th>coupling_regime</th>
+      <th>critical_utilization</th>
+      <th>peak_slope</th>
+      <th>mean_collapse_probability</th>
+      <th>feature</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>healthcare_referral</td>
+      <td>Healthcare ED Family</td>
+      <td>high</td>
+      <td>0.975</td>
+      <td>3.333333</td>
+      <td>0.694444</td>
+      <td>util_target</td>
+    </tr>
+    <tr>
+      <td>healthcare_referral</td>
+      <td>Healthcare ED Family</td>
+      <td>low</td>
+      <td>0.975</td>
+      <td>3.333333</td>
+      <td>0.694444</td>
+      <td>util_target</td>
+    </tr>
+    <tr>
+      <td>healthcare_referral</td>
+      <td>Healthcare ED Family</td>
+      <td>medium</td>
+      <td>0.975</td>
+      <td>3.888889</td>
+      <td>0.701389</td>
+      <td>util_target</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Figures</h2>
+<figure><img src='figures/controlled_threshold_by_coupling.png' style='max-width:100%; border:1px solid #ddd; border-radius:8px;' /><figcaption>Controlled synthetic collapse curves by topology and coupling regime.</figcaption></figure>
+<figure><img src='figures/threshold_shift_by_coupling.png' style='max-width:100%; border:1px solid #ddd; border-radius:8px;' /><figcaption>Estimated threshold shifts between low and high coupling regimes.</figcaption></figure>
+<figure><img src='figures/failure_shock_budget_margin.png' style='max-width:100%; border:1px solid #ddd; border-radius:8px;' /><figcaption>How higher coupling changes the minimum shock required to trigger failure.</figcaption></figure>
+<figure><img src='figures/healthcare_family_threshold.png' style='max-width:100%; border:1px solid #ddd; border-radius:8px;' /><figcaption>Healthcare ED family collapse curves under utilization and dependency coupling sweeps.</figcaption></figure>
+<figure><img src='figures/followup_main_result.png' style='max-width:100%; border:1px solid #ddd; border-radius:8px;' /><figcaption>Multi-panel summary of the controlled follow-up study.</figcaption></figure>
+</body></html>

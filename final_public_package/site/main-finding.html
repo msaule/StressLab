@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StressLab | Main Finding</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <nav class="nav">
+      <div class="brand">StressLab</div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="demo.html">Demo</a>
+        <a href="main-finding.html">Main Finding</a>
+        <a href="figures.html">Figures</a>
+        <a href="healthcare-case-study.html">Healthcare Case Study</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="reproduce.html">Reproduce</a>
+      </div>
+    </nav>
+
+    <section class="section">
+      <div class="eyebrow">Canonical claim</div>
+      <h1>Collapse thresholds are primarily utilization-led.</h1>
+      <p class="lede">
+        The flagship study showed a shared transition band across five topology families. The controlled follow-up then showed that coupling mainly trims failure margin rather than relocating the threshold by much.
+      </p>
+      <div class="claim">
+        Across domains, collapse thresholds are primarily utilization-led; coupling mainly narrows the failure margin rather than moving the threshold much.
+      </div>
+    </section>
+
+    <section class="section section-grid">
+      <div class="text-panel">
+        <h2>Flagship evidence</h2>
+        <ul>
+          <li>5,000 synthetic systems across five topology families</li>
+          <li>Shared collapse transition band around baseline utilization 0.10 to 0.19</li>
+          <li>Median estimated threshold across families: 0.152</li>
+          <li>Variance growth and recovery lag generalized as early-warning signals</li>
+          <li>Heavy-tailed cascades, with lognormal fitting better than strict power law</li>
+        </ul>
+      </div>
+      <div class="text-panel">
+        <h2>Follow-up refinement</h2>
+        <ul>
+          <li>2,700 fixed-size synthetic systems plus 144 healthcare variants</li>
+          <li>Mean high-versus-low coupling threshold shift: 0.008 utilization points</li>
+          <li>Largest absolute threshold shift: 0.023</li>
+          <li>Higher coupling reduced shock margin by about 39.2%</li>
+          <li>Healthcare validation showed the same cliff structure in arrival-multiplier space</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section figure-grid">
+      <div class="figure-card">
+        <img src="assets/public/collapse_overlay.png" alt="Collapse probability vs utilization">
+        <div class="copy">
+          <h3>Shared transition band</h3>
+          <p>The strongest flagship result is the overlay itself: different network families cross the cliff at different exact points, but they still cluster inside the same narrow regime.</p>
+        </div>
+      </div>
+      <div class="figure-card">
+        <img src="assets/public/phase_transition.png" alt="Phase transition by topology">
+        <div class="copy">
+          <h3>Per-topology critical points</h3>
+          <p>The topology differences are real, but they refine the claim rather than destroy it. The shared regime survives family-level variation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section figure-grid">
+      <div class="figure-card">
+        <img src="assets/public/controlled_thresholds.png" alt="Controlled thresholds">
+        <div class="copy">
+          <h3>Controlled threshold sweep</h3>
+          <p>When system size is fixed and utilization plus coupling are swept directly, the threshold remains utilization-led.</p>
+        </div>
+      </div>
+      <div class="figure-card">
+        <img src="assets/public/threshold_shift.png" alt="Threshold shift by coupling">
+        <div class="copy">
+          <h3>Coupling moves the threshold only modestly</h3>
+          <p>The follow-up weakens any stronger claim that coupling alone sets the universal threshold.</p>
+        </div>
+      </div>
+      <div class="figure-card">
+        <img src="assets/public/failure_margin.png" alt="Failure shock margin">
+        <div class="copy">
+          <h3>Coupling compresses robustness</h3>
+          <p>The real operational effect of tighter coupling is not a dramatic threshold relocation. It is a narrower buffer to failure once a system is near the cliff.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="text-panel">
+        <h2>Strongest defensible takeaway</h2>
+        <p>
+          The evidence supports a more careful claim than "one universal threshold rules everything." StressLab found a shared utilization-led collapse regime across domains.
+          Coupling is important, but mostly because it makes near-threshold systems less forgiving.
+        </p>
+        <p>
+          That is useful both scientifically and operationally: the threshold tells you where the cliff is, while coupling tells you how little disturbance it may take to fall over it.
+        </p>
+        <div class="button-row">
+          <a class="button" href="figures.html">See the full figure set</a>
+          <a class="button secondary" href="reproduce.html">Reproduce the studies</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      Reports: <a href="studies/flagship/FLAGSHIP_RESEARCH_REPORT.html">flagship</a> and <a href="studies/followup/FOLLOWUP_RESEARCH_REPORT.html">follow-up</a>.
+    </div>
+  </div>
+</body>
+</html>

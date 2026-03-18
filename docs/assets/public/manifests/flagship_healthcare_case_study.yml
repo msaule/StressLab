@@ -1,0 +1,27 @@
+name: flagship_healthcare_case_study
+description: >
+  Illustrative healthcare overload case study used for the flagship universal
+  collapse package.
+continue_on_error: false
+jobs:
+  - id: healthcare_baseline
+    label: Healthcare baseline
+    command: run
+    spec_path: ../healthcare/ed_basic.yml
+
+  - id: healthcare_worst_case
+    label: Healthcare worst-case search
+    command: search
+    spec_path: ../healthcare/ed_basic.yml
+    objective: worst_case
+    budget: 0.8
+
+  - id: healthcare_optimize
+    label: Healthcare robust optimize
+    command: optimize
+    spec_path: ../healthcare/ed_basic.yml
+    robust: true
+    scenario_budget: 0.4
+    scenario_samples: 6
+    budget: 2500
+    fairness_weight: 0.25

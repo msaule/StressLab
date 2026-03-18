@@ -1,0 +1,66 @@
+name: flagship_universal_collapse_study
+description: >
+  Flagship cross-domain collapse study. Runs large discovery campaigns across
+  five synthetic topology families, then supports merged theory/research
+  analysis over the combined workspace.
+continue_on_error: false
+jobs:
+  - id: random_queue_discover
+    label: Random queue discovery
+    command: discover
+    topology_type: random_queue
+    count: 1000
+    min_nodes: 8
+    max_nodes: 24
+    seed: 101
+    batch_size: 100
+    workers: 8
+    worst_case_budget: 1.0
+
+  - id: scale_free_discover
+    label: Scale-free discovery
+    command: discover
+    topology_type: scale_free
+    count: 1000
+    min_nodes: 8
+    max_nodes: 24
+    seed: 211
+    batch_size: 100
+    workers: 8
+    worst_case_budget: 1.0
+
+  - id: small_world_discover
+    label: Small-world discovery
+    command: discover
+    topology_type: small_world
+    count: 1000
+    min_nodes: 8
+    max_nodes: 24
+    seed: 307
+    batch_size: 100
+    workers: 8
+    worst_case_budget: 1.0
+
+  - id: hierarchical_supply_discover
+    label: Hierarchical supply discovery
+    command: discover
+    topology_type: hierarchical_supply
+    count: 1000
+    min_nodes: 8
+    max_nodes: 24
+    seed: 401
+    batch_size: 100
+    workers: 8
+    worst_case_budget: 1.0
+
+  - id: market_microstructure_discover
+    label: Market microstructure discovery
+    command: discover
+    topology_type: market_microstructure
+    count: 1000
+    min_nodes: 8
+    max_nodes: 24
+    seed: 503
+    batch_size: 100
+    workers: 8
+    worst_case_budget: 1.0

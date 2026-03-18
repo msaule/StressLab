@@ -1,0 +1,19 @@
+name: followup_controlled_threshold_study
+description: >
+  Controlled follow-up study that isolates utilization and coupling in fixed-size
+  synthetic systems and validates the threshold shape on a healthcare family.
+continue_on_error: false
+jobs:
+  - id: controlled_synthetic_discover
+    label: Controlled synthetic factorial discovery
+    command: discover
+    source_dir: ../../generated/followup_controlled_threshold_study/synthetic_specs
+    batch_size: 100
+    workers: 8
+
+  - id: healthcare_family_discover
+    label: Healthcare family threshold discovery
+    command: discover
+    source_dir: ../../generated/followup_controlled_threshold_study/healthcare_specs
+    batch_size: 50
+    workers: 4

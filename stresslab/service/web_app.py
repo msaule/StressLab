@@ -60,6 +60,7 @@ APP_HTML = """
     <h1>StressLab Control Center</h1>
     <p>Interactive workspace view for live resilience operations, async jobs, artifact inspection, and side-by-side plan review.</p>
     <nav>
+      <a href="/demo">Demo</a>
       <a href="#overview">Overview</a>
       <a href="#discovery">Discovery</a>
       <a href="#artifacts">Artifacts</a>
